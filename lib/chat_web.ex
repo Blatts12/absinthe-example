@@ -1,12 +1,12 @@
-defmodule ChatWeb do
+defmodule MeloChatWeb do
   @moduledoc """
   The entrypoint for defining your web interface, such
   as controllers, components, channels, and so on.
 
   This can be used in your application as:
 
-      use ChatWeb, :controller
-      use ChatWeb, :html
+      use MeloChatWeb, :controller
+      use MeloChatWeb, :html
 
   The definitions below will be executed for every controller,
   component, etc, so keep them short and clean, focused
@@ -17,90 +17,48 @@ defmodule ChatWeb do
   those modules here.
   """
 
+  @spec static_paths() :: list(String.t())
   def static_paths, do: ~w(assets fonts images favicon.ico robots.txt)
 
+  @spec router() :: Macro.t()
   def router do
     quote do
       use Phoenix.Router, helpers: false
 
       # Import common connection and controller functions to use in pipelines
-      import Plug.Conn
       import Phoenix.Controller
-      import Phoenix.LiveView.Router
+      import Plug.Conn
     end
   end
 
+  @spec channel() :: Macro.t()
   def channel do
     quote do
       use Phoenix.Channel
     end
   end
 
+  @spec controller() :: Macro.t()
   def controller do
     quote do
       use Phoenix.Controller,
         formats: [:html, :json],
-        layouts: [html: ChatWeb.Layouts]
+        layouts: [html: MeloChatWeb.Layouts]
 
+      import MeloChatWeb.Gettext
       import Plug.Conn
-      import ChatWeb.Gettext
 
       unquote(verified_routes())
     end
   end
 
-  def live_view do
-    quote do
-      use Phoenix.LiveView,
-        layout: {ChatWeb.Layouts, :app}
-
-      unquote(html_helpers())
-    end
-  end
-
-  def live_component do
-    quote do
-      use Phoenix.LiveComponent
-
-      unquote(html_helpers())
-    end
-  end
-
-  def html do
-    quote do
-      use Phoenix.Component
-
-      # Import convenience functions from controllers
-      import Phoenix.Controller,
-        only: [get_csrf_token: 0, view_module: 1, view_template: 1]
-
-      # Include general helpers for rendering HTML
-      unquote(html_helpers())
-    end
-  end
-
-  defp html_helpers do
-    quote do
-      # HTML escaping functionality
-      import Phoenix.HTML
-      # Core UI components and translation
-      import ChatWeb.CoreComponents
-      import ChatWeb.Gettext
-
-      # Shortcut for generating JS commands
-      alias Phoenix.LiveView.JS
-
-      # Routes generation with the ~p sigil
-      unquote(verified_routes())
-    end
-  end
-
+  @spec verified_routes() :: Macro.t()
   def verified_routes do
     quote do
       use Phoenix.VerifiedRoutes,
-        endpoint: ChatWeb.Endpoint,
-        router: ChatWeb.Router,
-        statics: ChatWeb.static_paths()
+        endpoint: MeloChatWeb.Endpoint,
+        router: MeloChatWeb.Router,
+        statics: MeloChatWeb.static_paths()
     end
   end
 

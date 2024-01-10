@@ -1,4 +1,4 @@
-defmodule ChatWeb.ConnCase do
+defmodule MeloChatWeb.ConnCase do
   @moduledoc """
   This module defines the test case to be used by
   tests that require setting up a connection.
@@ -11,7 +11,7 @@ defmodule ChatWeb.ConnCase do
   we enable the SQL sandbox, so changes done to the database
   are reverted at the end of every test. If you are using
   PostgreSQL, you can even run database tests asynchronously
-  by setting `use ChatWeb.ConnCase, async: true`, although
+  by setting `use MeloChatWeb.ConnCase, async: true`, although
   this option is not recommended for other databases.
   """
 
@@ -20,19 +20,19 @@ defmodule ChatWeb.ConnCase do
   using do
     quote do
       # The default endpoint for testing
-      @endpoint ChatWeb.Endpoint
-
-      use ChatWeb, :verified_routes
+      use MeloChatWeb, :verified_routes
 
       # Import conveniences for testing with connections
-      import Plug.Conn
+      import MeloChatWeb.ConnCase
       import Phoenix.ConnTest
-      import ChatWeb.ConnCase
+      import Plug.Conn
+
+      @endpoint MeloChatWeb.Endpoint
     end
   end
 
   setup tags do
-    Chat.DataCase.setup_sandbox(tags)
+    MeloChat.DataCase.setup_sandbox(tags)
     {:ok, conn: Phoenix.ConnTest.build_conn()}
   end
 end

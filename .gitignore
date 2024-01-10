@@ -35,3 +35,9 @@ chat-*.tar
 npm-debug.log
 /assets/node_modules/
 
+# Elixir LS extension
+/.elixir_ls/
+
+# Dialyzer
+/.dialyzer/
+

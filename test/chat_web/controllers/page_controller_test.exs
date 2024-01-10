@@ -1,5 +1,5 @@
-defmodule ChatWeb.PageControllerTest do
-  use ChatWeb.ConnCase
+defmodule MeloChatWeb.PageControllerTest do
+  use MeloChatWeb.ConnCase
 
   test "GET /", %{conn: conn} do
     conn = get(conn, ~p"/")

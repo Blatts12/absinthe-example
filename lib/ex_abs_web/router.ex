@@ -5,9 +5,8 @@ defmodule ExAbsWeb.Router do
     plug :accepts, ["json"]
   end
 
-  # Other scopes may use custom stacks.
-  scope "/api", ExAbsWeb do
-    pipe_through :api
+  scope "/", ExAbsWeb do
+    forward "/api", GraphQl.Router
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development

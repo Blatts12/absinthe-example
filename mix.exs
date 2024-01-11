@@ -50,6 +50,8 @@ defmodule ExAbs.MixProject do
       {:dns_cluster, "~> 0.1.1"},
       {:plug_cowboy, "~> 2.5"},
       {:contexted, "~> 0.3.0"},
+      {:absinthe, "~> 1.7"},
+      {:absinthe_plug, "~> 1.5"},
       {:ex_machina, "~> 2.7.0", only: :test},
       {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
       {:excellent_migrations, "~> 0.1", only: [:dev, :test], runtime: false},

@@ -1,12 +1,12 @@
-defmodule MeloChatWeb.Endpoint do
-  use Phoenix.Endpoint, otp_app: :chat
+defmodule ExAbsWeb.Endpoint do
+  use Phoenix.Endpoint, otp_app: :ex_abs
 
   # The session will be stored in the cookie and signed,
   # this means its contents can be read but not tampered with.
   # Set :encryption_salt if you would also like to encrypt it.
   @session_options [
     store: :cookie,
-    key: "_chat_key",
+    key: "_ex_abs_key",
     signing_salt: "ym+Gvp48",
     same_site: "Lax"
   ]
@@ -19,15 +19,15 @@ defmodule MeloChatWeb.Endpoint do
   # when deploying your static files in production.
   plug Plug.Static,
     at: "/",
-    from: :chat,
+    from: :ex_abs,
     gzip: false,
-    only: MeloChatWeb.static_paths()
+    only: ExAbsWeb.static_paths()
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
   if code_reloading? do
     plug Phoenix.CodeReloader
-    plug Phoenix.Ecto.CheckRepoStatus, otp_app: :chat
+    plug Phoenix.Ecto.CheckRepoStatus, otp_app: :ex_abs
   end
 
   plug Phoenix.LiveDashboard.RequestLogger,
@@ -45,5 +45,5 @@ defmodule MeloChatWeb.Endpoint do
   plug Plug.MethodOverride
   plug Plug.Head
   plug Plug.Session, @session_options
-  plug MeloChatWeb.Router
+  plug ExAbsWeb.Router
 end

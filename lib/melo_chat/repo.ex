@@ -1,5 +1,5 @@
-defmodule MeloChat.Repo do
+defmodule ExAbs.Repo do
   use Ecto.Repo,
-    otp_app: :chat,
+    otp_app: :ex_abs,
     adapter: Ecto.Adapters.Postgres
 end

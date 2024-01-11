@@ -1,8 +1,8 @@
-defmodule MeloChat.Auth.UsersTest do
-  use MeloChat.DataCase
+defmodule ExAbs.Auth.UsersTest do
+  use ExAbs.DataCase
 
-  alias MeloChat.Auth
-  alias MeloChat.Auth.User
+  alias ExAbs.Auth
+  alias ExAbs.Auth.User
 
   describe "list_users/0" do
     test "returns all users" do

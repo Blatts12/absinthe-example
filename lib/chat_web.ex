@@ -1,12 +1,12 @@
-defmodule MeloChatWeb do
+defmodule ExAbsWeb do
   @moduledoc """
   The entrypoint for defining your web interface, such
   as controllers, components, channels, and so on.
 
   This can be used in your application as:
 
-      use MeloChatWeb, :controller
-      use MeloChatWeb, :html
+      use ExAbsWeb, :controller
+      use ExAbsWeb, :html
 
   The definitions below will be executed for every controller,
   component, etc, so keep them short and clean, focused
@@ -43,9 +43,9 @@ defmodule MeloChatWeb do
     quote do
       use Phoenix.Controller,
         formats: [:html, :json],
-        layouts: [html: MeloChatWeb.Layouts]
+        layouts: [html: ExAbsWeb.Layouts]
 
-      import MeloChatWeb.Gettext
+      import ExAbsWeb.Gettext
       import Plug.Conn
 
       unquote(verified_routes())
@@ -56,9 +56,9 @@ defmodule MeloChatWeb do
   def verified_routes do
     quote do
       use Phoenix.VerifiedRoutes,
-        endpoint: MeloChatWeb.Endpoint,
-        router: MeloChatWeb.Router,
-        statics: MeloChatWeb.static_paths()
+        endpoint: ExAbsWeb.Endpoint,
+        router: ExAbsWeb.Router,
+        statics: ExAbsWeb.static_paths()
     end
   end
 

@@ -1,9 +1,9 @@
-defmodule MeloChat.Auth do
+defmodule ExAbs.Auth do
   @moduledoc false
 
   import Contexted.Delegator
 
-  alias MeloChat.Auth.Users
+  alias ExAbs.Auth.Users
 
   delegate_all(Users)
 end

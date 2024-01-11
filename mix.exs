@@ -1,10 +1,10 @@
-defmodule MeloChat.MixProject do
+defmodule ExAbs.MixProject do
   use Mix.Project
 
   def project do
     [
       aliases: aliases(),
-      app: :chat,
+      app: :ex_abs,
       compilers: [:contexted] ++ Mix.compilers(),
       deps: deps(),
       dialyzer: dialyzer(),
@@ -21,7 +21,7 @@ defmodule MeloChat.MixProject do
   # Type `mix help compile.app` for more information.
   def application do
     [
-      mod: {MeloChat.Application, []},
+      mod: {ExAbs.Application, []},
       extra_applications: [:logger, :runtime_tools]
     ]
   end

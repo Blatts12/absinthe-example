@@ -1,9 +1,9 @@
-defmodule MeloChat.Auth.UserSpec do
+defmodule ExAbs.Auth.UserSpec do
   @moduledoc false
 
-  alias MeloChat.Types
+  alias ExAbs.Types
 
-  @type t() :: %MeloChat.Auth.User{
+  @type t() :: %ExAbs.Auth.User{
           id: Types.field(Types.id()),
           username: Types.field(String.t()),
           inserted_at: Types.field(DateTime.t()),

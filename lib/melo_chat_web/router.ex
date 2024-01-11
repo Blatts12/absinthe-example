@@ -1,23 +1,23 @@
-defmodule MeloChatWeb.Router do
-  use MeloChatWeb, :router
+defmodule ExAbsWeb.Router do
+  use ExAbsWeb, :router
 
   pipeline :api do
     plug :accepts, ["json"]
   end
 
   # Other scopes may use custom stacks.
-  scope "/api", MeloChatWeb do
+  scope "/api", ExAbsWeb do
     pipe_through :api
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
-  if Application.compile_env(:chat, :dev_routes) do
+  if Application.compile_env(:ex_abs, :dev_routes) do
     import Phoenix.LiveDashboard.Router
 
     scope "/dev" do
       pipe_through [:fetch_session, :protect_from_forgery]
 
-      live_dashboard "/dashboard", metrics: MeloChatWeb.Telemetry
+      live_dashboard "/dashboard", metrics: ExAbsWeb.Telemetry
       forward "/mailbox", Plug.Swoosh.MailboxPreview
     end
   end

@@ -1,11 +1,11 @@
-defmodule MeloChat.Auth.Users do
+defmodule ExAbs.Auth.Users do
   @moduledoc false
 
   import Ecto.Query, warn: false
 
-  alias MeloChat.Auth.User
-  alias MeloChat.Repo
-  alias MeloChat.Types
+  alias ExAbs.Auth.User
+  alias ExAbs.Repo
+  alias ExAbs.Types
 
   @spec list_users() :: list(User.t())
   def list_users do

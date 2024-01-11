@@ -3,11 +3,11 @@ import Config
 # Configure your database
 # pg_ctl start
 # pg_ctl stop
-config :chat, MeloChat.Repo,
+config :ex_abs, ExAbs.Repo,
   username: "postgres",
-  password: "",
+  password: "postgres",
   hostname: "localhost",
-  database: "melo_chat_dev",
+  database: "ex_abs_dev",
   stacktrace: true,
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
@@ -18,7 +18,7 @@ config :chat, MeloChat.Repo,
 # The watchers configuration can be used to run external
 # watchers to your application. For example, we can use it
 # to bundle .js and .css sources.
-config :chat, MeloChatWeb.Endpoint,
+config :ex_abs, ExAbsWeb.Endpoint,
   # Binding to loopback ipv4 address prevents access from other machines.
   # Change to `ip: {0, 0, 0, 0}` to allow access from other machines.
   http: [ip: {127, 0, 0, 1}, port: 4000],
@@ -52,7 +52,7 @@ config :chat, MeloChatWeb.Endpoint,
 # different ports.
 
 # Enable dev routes for dashboard and mailbox
-config :chat, dev_routes: true
+config :ex_abs, dev_routes: true
 
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"

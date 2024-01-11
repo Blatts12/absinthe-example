@@ -7,19 +7,19 @@
 # General application configuration
 import Config
 
-config :chat,
-  ecto_repos: [MeloChat.Repo],
+config :ex_abs,
+  ecto_repos: [ExAbs.Repo],
   generators: [timestamp_type: :utc_datetime]
 
 # Configures the endpoint
-config :chat, MeloChatWeb.Endpoint,
+config :ex_abs, ExAbsWeb.Endpoint,
   url: [host: "localhost"],
   adapter: Phoenix.Endpoint.Cowboy2Adapter,
   render_errors: [
-    formats: [json: MeloChatWeb.ErrorJSON],
+    formats: [json: ExAbsWeb.ErrorJSON],
     layout: false
   ],
-  pubsub_server: MeloChat.PubSub,
+  pubsub_server: ExAbs.PubSub,
   live_view: [signing_salt: "2AUL6YuJ"]
 
 # Configures the mailer
@@ -29,7 +29,7 @@ config :chat, MeloChatWeb.Endpoint,
 #
 # For production it's recommended to configure a different adapter
 # at the `config/runtime.exs`.
-config :chat, MeloChat.Mailer, adapter: Swoosh.Adapters.Local
+config :ex_abs, ExAbs.Mailer, adapter: Swoosh.Adapters.Local
 
 # Configures Elixir's Logger
 config :logger, :console,
@@ -42,7 +42,7 @@ config :phoenix, :json_library, Jason
 # Contexted configuration
 config :contexted,
   contexts: [
-    MeloChat.Auth
+    ExAbs.Auth
   ]
 
 # Import environment specific config. This must remain at the bottom

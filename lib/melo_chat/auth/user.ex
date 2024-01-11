@@ -1,13 +1,13 @@
-defmodule MeloChat.Auth.User do
+defmodule ExAbs.Auth.User do
   @moduledoc false
 
   use Ecto.Schema
 
   import Ecto.Changeset
 
-  alias MeloChat.Types
+  alias ExAbs.Types
 
-  @type t() :: MeloChat.Auth.UserSpec.t()
+  @type t() :: ExAbs.Auth.UserSpec.t()
   @type changeset() :: Types.changeset(t())
 
   schema "auth_users" do

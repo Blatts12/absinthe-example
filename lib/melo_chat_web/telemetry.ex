@@ -1,4 +1,4 @@
-defmodule MeloChatWeb.Telemetry do
+defmodule ExAbsWeb.Telemetry do
   @moduledoc false
   use Supervisor
 
@@ -56,23 +56,23 @@ defmodule MeloChatWeb.Telemetry do
       ),
 
       # Database Metrics
-      summary("chat.repo.query.total_time",
+      summary("ex_abs.repo.query.total_time",
         unit: {:native, :millisecond},
         description: "The sum of the other measurements"
       ),
-      summary("chat.repo.query.decode_time",
+      summary("ex_abs.repo.query.decode_time",
         unit: {:native, :millisecond},
         description: "The time spent decoding the data received from the database"
       ),
-      summary("chat.repo.query.query_time",
+      summary("ex_abs.repo.query.query_time",
         unit: {:native, :millisecond},
         description: "The time spent executing the query"
       ),
-      summary("chat.repo.query.queue_time",
+      summary("ex_abs.repo.query.queue_time",
         unit: {:native, :millisecond},
         description: "The time spent waiting for a database connection"
       ),
-      summary("chat.repo.query.idle_time",
+      summary("ex_abs.repo.query.idle_time",
         unit: {:native, :millisecond},
         description: "The time the connection spent waiting before being checked out for the query"
       ),
@@ -90,7 +90,7 @@ defmodule MeloChatWeb.Telemetry do
     [
       # A module, function and arguments to be invoked periodically.
       # This function must call :telemetry.execute/3 and a metric must be added above.
-      # {MeloChatWeb, :count_users, []}
+      # {ExAbsWeb, :count_users, []}
     ]
   end
 end

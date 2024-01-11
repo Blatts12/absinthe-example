@@ -1,4 +1,4 @@
-defmodule MeloChat.Repo.Migrations.CreateAuthUsers do
+defmodule ExAbs.Repo.Migrations.CreateAuthUsers do
   use Ecto.Migration
 
   def change do

@@ -1,4 +1,4 @@
-defmodule MeloChat.Types do
+defmodule ExAbs.Types do
   @moduledoc false
 
   alias Ecto.Changeset

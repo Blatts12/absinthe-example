@@ -1,7 +1,7 @@
-defmodule MeloChat.Auth.UserFactory do
+defmodule ExAbs.Auth.UserFactory do
   @moduledoc false
 
-  alias MeloChat.Auth.User
+  alias ExAbs.Auth.User
 
   defmacro __using__(_opts) do
     quote do

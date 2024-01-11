@@ -1,11 +1,11 @@
-defmodule MeloChatWeb.Gettext do
+defmodule ExAbsWeb.Gettext do
   @moduledoc """
   A module providing Internationalization with a gettext-based API.
 
   By using [Gettext](https://hexdocs.pm/gettext),
   your module gains a set of macros for translations, for example:
 
-      import MeloChatWeb.Gettext
+      import ExAbsWeb.Gettext
 
       # Simple translation
       gettext("Here is the string to translate")
@@ -20,5 +20,5 @@ defmodule MeloChatWeb.Gettext do
 
   See the [Gettext Docs](https://hexdocs.pm/gettext) for detailed usage.
   """
-  use Gettext, otp_app: :chat
+  use Gettext, otp_app: :ex_abs
 end

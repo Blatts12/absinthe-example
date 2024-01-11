@@ -1,8 +1,8 @@
-defmodule MeloChat.Factory do
+defmodule ExAbs.Factory do
   @moduledoc false
 
-  use ExMachina.Ecto, repo: MeloChat.Repo
+  use ExMachina.Ecto, repo: ExAbs.Repo
 
   # Auth
-  use MeloChat.Auth.UserFactory
+  use ExAbs.Auth.UserFactory
 end

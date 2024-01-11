@@ -1,4 +1,4 @@
-defmodule MeloChat.DataCase do
+defmodule ExAbs.DataCase do
   @moduledoc """
   This module defines the setup for tests requiring
   access to the application's data layer.
@@ -10,7 +10,7 @@ defmodule MeloChat.DataCase do
   we enable the SQL sandbox, so changes done to the database
   are reverted at the end of every test. If you are using
   PostgreSQL, you can even run database tests asynchronously
-  by setting `use MeloChat.DataCase, async: true`, although
+  by setting `use ExAbs.DataCase, async: true`, although
   this option is not recommended for other databases.
   """
 
@@ -23,15 +23,15 @@ defmodule MeloChat.DataCase do
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
-      import MeloChat.DataCase
-      import MeloChat.Factory
+      import ExAbs.DataCase
+      import ExAbs.Factory
 
-      alias MeloChat.Repo
+      alias ExAbs.Repo
     end
   end
 
   setup tags do
-    MeloChat.DataCase.setup_sandbox(tags)
+    ExAbs.DataCase.setup_sandbox(tags)
     :ok
   end
 
@@ -39,7 +39,7 @@ defmodule MeloChat.DataCase do
   Sets up the sandbox based on the test tags.
   """
   def setup_sandbox(tags) do
-    pid = Sandbox.start_owner!(MeloChat.Repo, shared: not tags[:async])
+    pid = Sandbox.start_owner!(ExAbs.Repo, shared: not tags[:async])
     on_exit(fn -> Sandbox.stop_owner(pid) end)
   end
 

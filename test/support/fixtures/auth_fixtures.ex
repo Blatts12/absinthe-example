@@ -1,7 +1,7 @@
-defmodule MeloChat.AuthFixtures do
+defmodule ExAbs.AuthFixtures do
   @moduledoc """
   This module defines test helpers for creating
-  entities via the `MeloChat.Auth` context.
+  entities via the `ExAbs.Auth` context.
   """
 
   @doc """
@@ -13,7 +13,7 @@ defmodule MeloChat.AuthFixtures do
       |> Enum.into(%{
         username: "some username"
       })
-      |> MeloChat.Auth.create_user()
+      |> ExAbs.Auth.create_user()
 
     user
   end

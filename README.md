@@ -1,4 +1,4 @@
-# MeloChat
+# AbsintheExample
 
 To start your Phoenix server:
 

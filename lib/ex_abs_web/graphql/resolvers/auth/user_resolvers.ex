@@ -17,7 +17,7 @@ defmodule ExAbsWeb.GraphQl.Auth.UserResolvers do
   end
 
   @spec create_user(map(), map()) :: {:ok, User.t()} | {:error, term()}
-  def create_user(args, _resolution) do
+  def create_user(%{input: args}, _resolution) do
     with {:ok, %User{} = user} <- Auth.create_user(args) do
       {:ok, user}
     end

@@ -7,7 +7,7 @@ defmodule ExAbsWeb.GraphQl.Auth.UserMutations do
 
   object :user_mutations do
     field :create_user, type: :user do
-      arg(:username, non_null(:string))
+      arg(:input, non_null(:create_user_input))
 
       resolve(&UserResolvers.create_user/2)
     end

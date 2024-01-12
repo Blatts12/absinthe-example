@@ -6,9 +6,11 @@ defmodule ExAbsWeb.GraphQl.Auth.UserResolvers do
 
   @spec get_user(map(), map()) :: {:ok, User.t()} | {:error, term()}
   def get_user(%{id: id}, _resolution) do
-    with %User{} = user <- Auth.get_user!(id) do
+    with %User{} = user <- Auth.get_user(id) do
       {:ok, user}
     end
+
+    {:error, :not_found}
   end
 
   @spec list_users(map(), map()) :: {:ok, [User.t()]} | {:error, term()}

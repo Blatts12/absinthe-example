@@ -15,7 +15,7 @@ defmodule ExAbsWeb.GraphQl.Router do
       to: Absinthe.Plug.GraphiQL,
       init_opts: [
         schema: ExAbsWeb.GraphQl.Schema,
-        interface: :advanced
+        interface: :playground
       ]
   end
 end

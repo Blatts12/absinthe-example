@@ -3,24 +3,15 @@ defmodule ExAbsWeb.GraphQl.Schema do
 
   use Absinthe.Schema
 
-  @desc "example object"
-  object :example do
-    @desc "example field"
-    field :value, :string
-  end
+  import_types(ExAbsWeb.GraphQl.Types)
+  import_types(ExAbsWeb.GraphQl.Queries)
+  import_types(ExAbsWeb.GraphQl.Mutations)
 
   query do
-    @desc "example query"
-    field :example_query, :example do
-      arg(:example_arg, :string)
-
-      resolve(fn _, _, _ ->
-        {:ok, %{value: "example"}}
-        # {:error, "Invalid data, example"}
-      end)
-    end
+    import_fields(:user_queries)
   end
 
-  # mutation do
-  # end
+  mutation do
+    import_fields(:user_mutations)
+  end
 end

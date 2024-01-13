@@ -1,6 +1,9 @@
 defmodule ExAbsWeb.UserSocket do
   use Phoenix.Socket
 
+  use Absinthe.Phoenix.Socket,
+    schema: ExAbsWeb.GraphQl.Schema
+
   # A Socket handler
   #
   # It's possible to control the websocket connection and
@@ -18,7 +21,6 @@ defmodule ExAbsWeb.UserSocket do
   #
   # See the [`Channels guide`](https://hexdocs.pm/phoenix/channels.html)
   # for further details.
-
 
   # Socket params are passed from the client and can
   # be used to verify and authenticate a user. After

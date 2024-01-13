@@ -6,5 +6,5 @@ defmodule ExAbsWeb.GraphQl.Types do
   use Absinthe.Schema.Notation
 
   # Auth
-  import_types(ExAbsWeb.GraphQl.Auth.UserTypes)
+  import_types ExAbsWeb.GraphQl.Auth.UserTypes
 end

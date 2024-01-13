@@ -6,16 +6,21 @@ defmodule ExAbsWeb.GraphQl.Schema do
   alias Absinthe.Type
   alias ExAbsWeb.GraphQl.HandleErrors
 
-  import_types(ExAbsWeb.GraphQl.Types)
-  import_types(ExAbsWeb.GraphQl.Queries)
-  import_types(ExAbsWeb.GraphQl.Mutations)
+  import_types ExAbsWeb.GraphQl.Types
+  import_types ExAbsWeb.GraphQl.Queries
+  import_types ExAbsWeb.GraphQl.Mutations
+  import_types ExAbsWeb.GraphQl.Subscriptions
 
   query do
-    import_fields(:user_queries)
+    import_fields :user_queries
   end
 
   mutation do
-    import_fields(:user_mutations)
+    import_fields :user_mutations
+  end
+
+  subscription do
+    import_fields :user_subscriptions
   end
 
   @spec middleware(list(Absinthe.Middleware.spec()), Type.Field.t(), Type.Object.t()) :: list(Absinthe.Middleware.spec())

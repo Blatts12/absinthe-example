@@ -17,7 +17,8 @@ defmodule ExAbs.Application do
       # Start a worker by calling: ExAbs.Worker.start_link(arg)
       # {ExAbs.Worker, arg},
       # Start to serve requests, typically the last entry
-      ExAbsWeb.Endpoint
+      ExAbsWeb.Endpoint,
+      {Absinthe.Subscription, ExAbsWeb.Endpoint}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

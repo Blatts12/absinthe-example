@@ -61,7 +61,7 @@ defmodule ExAbsWeb.GraphQl.HandleErrors do
         [
           %{
             code: :validation_failed,
-            message: Gettext.gettext(Ellesz.Gettext, message),
+            message: Gettext.gettext(ExAbsWeb.Gettext, message),
             field: Enum.reverse(path)
           }
         ]

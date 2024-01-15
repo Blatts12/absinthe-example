@@ -10,6 +10,7 @@ defmodule ExAbsWeb.GraphQl.Schema do
   import_types ExAbsWeb.GraphQl.Queries
   import_types ExAbsWeb.GraphQl.Mutations
   import_types ExAbsWeb.GraphQl.Subscriptions
+  import_types ExAbsWeb.GraphQl.PaginationTypes
 
   query do
     import_fields :user_queries

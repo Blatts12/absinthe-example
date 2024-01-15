@@ -8,6 +8,11 @@ defmodule ExAbsWeb.GraphQl.Auth.UserTypes do
     field :username, :string
   end
 
+  object :user_pagination do
+    field :entries, list_of(:user)
+    field :metadata, :pagination_metadata
+  end
+
   input_object :create_user_input do
     field :username, non_null(:string)
   end

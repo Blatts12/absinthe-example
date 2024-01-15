@@ -6,10 +6,23 @@ defmodule ExAbs.Auth.Users do
   alias ExAbs.Auth.User
   alias ExAbs.Repo
   alias ExAbs.Types
+  alias Paginator.Page
 
   @spec list_users() :: list(User.t())
   def list_users do
     Repo.all(User)
+  end
+
+  @spec paginate_users() :: Page.t()
+  @spec paginate_users(map()) :: Page.t()
+  def paginate_users(pagination \\ %{}) do
+    repo_pagination =
+      pagination
+      |> Enum.into(Keyword.new())
+      |> Keyword.put_new(:limit, 20)
+      |> Keyword.put(:cursor_fields, [:inserted_at, :id])
+
+    Repo.paginate(User, repo_pagination)
   end
 
   @spec get_user!(Types.id()) :: User.t()

@@ -3,6 +3,7 @@ defmodule ExAbsWeb.GraphQl.Auth.UserResolvers do
 
   alias ExAbs.Auth
   alias ExAbs.Auth.User
+  alias Paginator.Page
 
   @spec get_user(map(), map()) :: {:ok, User.t()} | {:error, term()}
   def get_user(%{id: id}, _resolution) do
@@ -15,6 +16,12 @@ defmodule ExAbsWeb.GraphQl.Auth.UserResolvers do
   @spec list_users(map(), map()) :: {:ok, [User.t()]} | {:error, term()}
   def list_users(_args, _resolution) do
     {:ok, Auth.list_users()}
+  end
+
+  @spec list_users(map(), map()) :: {:ok, Page.t()} | {:error, term()}
+  def paginate_users(args, _resolution) do
+    pagination = Map.get(args, :pagination, %{})
+    {:ok, Auth.paginate_users(pagination)}
   end
 
   @spec create_user(map(), map()) :: {:ok, User.t()} | {:error, term()}

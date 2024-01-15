@@ -15,5 +15,11 @@ defmodule ExAbsWeb.GraphQl.Auth.UserQueries do
     field :list_users, list_of(:user) do
       resolve &UserResolvers.list_users/2
     end
+
+    field :paginate_users, :user_pagination do
+      arg :pagination, non_null(:pagination_input)
+
+      resolve &UserResolvers.paginate_users/2
+    end
   end
 end

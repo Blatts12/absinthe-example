@@ -11,6 +11,28 @@ defmodule ExAbs.Auth.UsersTest do
     end
   end
 
+  describe "paginate_users/1" do
+    test "returns 2 users per page" do
+      insert_list(5, :user)
+      params = %{limit: 2}
+
+      %{entries: users, metadata: metadata} = Auth.paginate_users(params)
+      assert Enum.count(users) == 2
+
+      params = %{limit: 2, after: metadata.after}
+      %{entries: users, metadata: metadata} = Auth.paginate_users(params)
+      assert Enum.count(users) == 2
+
+      params = %{limit: 2, after: metadata.after}
+      %{entries: users, metadata: metadata} = Auth.paginate_users(params)
+      assert Enum.count(users) == 1
+
+      params = %{limit: 2, before: metadata.before}
+      %{entries: users} = Auth.paginate_users(params)
+      assert Enum.count(users) == 2
+    end
+  end
+
   describe "get_user!/1" do
     test "returns the user with given id" do
       user = insert(:user)

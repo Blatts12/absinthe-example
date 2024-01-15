@@ -1,4 +1,4 @@
-defmodule ExAbsWeb.Graphql.Auth.UserQueriesTest do
+defmodule ExAbsWeb.GraphQl.Auth.UserQueriesTest do
   use ExAbsWeb.ConnCase
 
   describe "get_user" do

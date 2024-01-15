@@ -41,3 +41,5 @@ npm-debug.log
 # Dialyzer
 /.dialyzer/
 
+# MacOS Finder metadata
+.DS_Store

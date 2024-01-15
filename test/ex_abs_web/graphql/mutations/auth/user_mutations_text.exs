@@ -1,5 +1,5 @@
 defmodule ExAbsWeb.GraphQl.Auth.UserMutationsTest do
-  use ExAbsWeb.ConnCase
+  use ExAbsWeb.GraphQlCase
 
   alias ExAbs.Auth
   alias ExAbs.Auth.User
@@ -14,14 +14,8 @@ defmodule ExAbsWeb.GraphQl.Auth.UserMutationsTest do
     }
     """
 
-    test "creates user when input is valid", %{conn: conn} do
+    test "creates user when input is valid" do
       %{username: username} = user_params = params_for(:user)
-
-      conn =
-        post(conn, "/api/graphql", %{
-          "query" => @create_user,
-          "variables" => %{"input" => user_params}
-        })
 
       assert %{
                "data" => %{
@@ -30,22 +24,24 @@ defmodule ExAbsWeb.GraphQl.Auth.UserMutationsTest do
                    "username" => ^username
                  }
                }
-             } = json_response(conn, 200)
+             } =
+               gql_post(%{
+                 "query" => @create_user,
+                 "variables" => %{"input" => user_params}
+               })
 
       assert %User{} = Auth.get_user(id)
     end
 
-    test "returns error when input is invalid", %{conn: conn} do
-      conn =
-        post(conn, "/api/graphql", %{
-          "query" => @create_user,
-          "variables" => %{"input" => %{username: "bad"}}
-        })
-
+    test "returns error when input is invalid" do
       assert %{
                "data" => %{"createUser" => nil},
                "errors" => [%{"message" => "should be at least 4 character(s)", "field" => ["username"]}]
-             } = json_response(conn, 200)
+             } =
+               gql_post(%{
+                 "query" => @create_user,
+                 "variables" => %{"input" => %{username: "bad"}}
+               })
     end
   end
 end

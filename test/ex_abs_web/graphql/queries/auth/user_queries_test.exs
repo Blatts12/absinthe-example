@@ -1,5 +1,5 @@
 defmodule ExAbsWeb.GraphQl.Auth.UserQueriesTest do
-  use ExAbsWeb.ConnCase
+  use ExAbsWeb.GraphQlCase
 
   describe "get_user" do
     @get_user """
@@ -11,14 +11,8 @@ defmodule ExAbsWeb.GraphQl.Auth.UserQueriesTest do
     }
     """
 
-    test "returns user when found", %{conn: conn} do
+    test "returns user when found" do
       user = insert(:user)
-
-      conn =
-        post(conn, "/api/graphql", %{
-          "query" => @get_user,
-          "variables" => %{"id" => user.id}
-        })
 
       assert %{
                "data" => %{
@@ -27,20 +21,22 @@ defmodule ExAbsWeb.GraphQl.Auth.UserQueriesTest do
                    "username" => user.username
                  }
                }
-             } == json_response(conn, 200)
+             } ==
+               gql_post(%{
+                 "query" => @get_user,
+                 "variables" => %{"id" => user.id}
+               })
     end
 
-    test "returns 'not_found' error when missing", %{conn: conn} do
-      conn =
-        post(conn, "/api/graphql", %{
-          "query" => @get_user,
-          "variables" => %{"id" => -1}
-        })
-
+    test "returns 'not_found' error when missing" do
       assert %{
                "data" => %{"getUser" => nil},
                "errors" => [%{"message" => "not_found"}]
-             } = json_response(conn, 200)
+             } =
+               gql_post(%{
+                 "query" => @get_user,
+                 "variables" => %{"id" => -1}
+               })
     end
   end
 
@@ -54,9 +50,8 @@ defmodule ExAbsWeb.GraphQl.Auth.UserQueriesTest do
     }
     """
 
-    test "returns list of users when available", %{conn: conn} do
+    test "returns list of users when available" do
       user = insert(:user)
-      conn = post(conn, "/api/graphql", %{"query" => @list_users})
 
       assert %{
                "data" => %{
@@ -67,12 +62,11 @@ defmodule ExAbsWeb.GraphQl.Auth.UserQueriesTest do
                    }
                  ]
                }
-             } == json_response(conn, 200)
+             } == gql_post(%{"query" => @list_users})
     end
 
-    test "returns empty list when missing", %{conn: conn} do
-      conn = post(conn, "/api/graphql", %{"query" => @list_users})
-      assert %{"data" => %{"listUsers" => []}} = json_response(conn, 200)
+    test "returns empty list when missing" do
+      assert %{"data" => %{"listUsers" => []}} = gql_post(%{"query" => @list_users})
     end
   end
 end

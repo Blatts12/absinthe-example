@@ -3,10 +3,27 @@ defmodule ExAbsWeb.SubscriptionCase do
 
   use ExUnit.CaseTemplate
 
+  alias Absinthe.Phoenix.SubscriptionTest
+  alias Phoenix.ChannelTest
+  alias Phoenix.Socket
+
+  require Phoenix.ChannelTest
+
   using do
     quote do
-      use ExAbsWeb.ChannelTest
+      use ExAbsWeb.ChannelCase
       use Absinthe.Phoenix.SubscriptionTest, schema: ExAbsWeb.GraphQl.Schema
+
+      import ExAbsWeb.GraphQlHelpers
+
+      @spec create_socket() :: Socket.t()
+      @spec create_socket(map()) :: Socket.t()
+      defp create_socket(params \\ %{}) do
+        {:ok, socket} = ChannelTest.connect(ExAbsWeb.UserSocket, params)
+        {:ok, socket} = SubscriptionTest.join_absinthe(socket)
+
+        socket
+      end
 
       @spec subscribe(Socket.t(), String.t(), Keyword.t()) :: binary()
       defp subscribe(socket, query, options \\ []) do

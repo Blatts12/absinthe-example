@@ -7,4 +7,7 @@ defmodule ExAbsWeb.GraphQl.Types do
 
   # Auth
   import_types ExAbsWeb.GraphQl.Auth.UserTypes
+
+  # Blog
+  import_types ExAbsWeb.GraphQl.Blog.PostTypes
 end

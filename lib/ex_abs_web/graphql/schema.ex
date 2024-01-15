@@ -13,14 +13,20 @@ defmodule ExAbsWeb.GraphQl.Schema do
   import_types ExAbsWeb.GraphQl.PaginationTypes
 
   query do
+    # Auth
     import_fields :user_queries
   end
 
   mutation do
+    # Auth
     import_fields :user_mutations
+
+    # Blog
+    import_fields :post_mutations
   end
 
   subscription do
+    # Auth
     import_fields :user_subscriptions
   end
 

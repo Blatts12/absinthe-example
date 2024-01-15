@@ -42,7 +42,8 @@ config :phoenix, :json_library, Jason
 # Contexted configuration
 config :contexted,
   contexts: [
-    ExAbs.Auth
+    ExAbs.Auth,
+    ExAbs.Blog
   ]
 
 # Import environment specific config. This must remain at the bottom

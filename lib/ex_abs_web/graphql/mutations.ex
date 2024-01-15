@@ -4,5 +4,8 @@ defmodule ExAbsWeb.GraphQl.Mutations do
   use Absinthe.Schema.Notation
 
   # Auth
-  import_types(ExAbsWeb.GraphQl.Auth.UserMutations)
+  import_types ExAbsWeb.GraphQl.Auth.UserMutations
+
+  # Blog
+  import_types ExAbsWeb.GraphQl.Blog.PostMutations
 end

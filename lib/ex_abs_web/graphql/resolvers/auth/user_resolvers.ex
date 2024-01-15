@@ -13,7 +13,17 @@ defmodule ExAbsWeb.GraphQl.Auth.UserResolvers do
     end
   end
 
-  @spec list_users(map(), map()) :: {:ok, [User.t()]} | {:error, term()}
+  # Get user as nested field
+  @spec get_user(map(), map(), map()) :: {:ok, User.t() | nil}
+  def get_user(%{user_id: user_id}, _args, _resolution) do
+    {:ok, Auth.get_user(user_id)}
+  end
+
+  def get_user(_parent, _args, _resolution) do
+    {:ok, nil}
+  end
+
+  @spec list_users(map(), map()) :: {:ok, [User.t()]}
   def list_users(_args, _resolution) do
     {:ok, Auth.list_users()}
   end

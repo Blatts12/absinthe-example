@@ -1,12 +1,13 @@
 defmodule ExAbs.Types do
   @moduledoc false
 
+  alias Ecto.Association
   alias Ecto.Changeset
 
   @type changeset(schema_type) :: Changeset.t(schema_type)
   @type changeset() :: Changeset.t()
 
-  @type field(schema_type) :: schema_type | nil
+  @type field(schema_type) :: schema_type | Association.NotLoaded.t() | nil
 
   @type id() :: integer()
 

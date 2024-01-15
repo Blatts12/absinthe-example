@@ -16,6 +16,9 @@ defmodule ExAbs.Auth.Users do
   @spec paginate_users() :: Page.t()
   @spec paginate_users(map()) :: Page.t()
   def paginate_users(pagination \\ %{}) do
+    # This is only a simple example of pagination.
+    # Missing: opts validation, error handling, etc.
+
     repo_pagination =
       pagination
       |> Enum.into(Keyword.new())

@@ -18,7 +18,7 @@ defmodule ExAbsWeb.GraphQl.Auth.UserResolvers do
     {:ok, Auth.list_users()}
   end
 
-  @spec list_users(map(), map()) :: {:ok, Page.t()} | {:error, term()}
+  @spec paginate_users(map(), map()) :: {:ok, Page.t()}
   def paginate_users(args, _resolution) do
     pagination = Map.get(args, :pagination, %{})
     {:ok, Auth.paginate_users(pagination)}

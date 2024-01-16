@@ -10,6 +10,13 @@ defmodule ExAbsWeb.GraphQl.Schema do
   alias ExAbsWeb.GraphQl.HandleErrors
   alias ExAbsWeb.GraphQl.Schema.BasicDataSource
 
+  node interface do
+    resolve_type fn
+      %{__typename: "User"} -> :user
+      %{__typename: "Post"} -> :post
+    end
+  end
+
   import_types ExAbsWeb.GraphQl.Types
   import_types ExAbsWeb.GraphQl.PaginationTypes
 

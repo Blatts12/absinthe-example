@@ -5,8 +5,7 @@ defmodule ExAbsWeb.GraphQl.Blog.PostTypes do
 
   alias ExAbs.Auth.User
 
-  object :post do
-    field :id, non_null(:id)
+  node object(:post) do
     field :title, non_null(:string)
     field :user_id, non_null(:id)
     field :user, non_null(:user), resolve: dataloader(User)

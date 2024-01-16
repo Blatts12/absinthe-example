@@ -4,7 +4,10 @@ defmodule ExAbsWeb.GraphQl.Schema do
   use Absinthe.Schema
 
   alias Absinthe.Type
+  alias ExAbs.Auth
+  alias ExAbs.Blog
   alias ExAbsWeb.GraphQl.HandleErrors
+  alias ExAbsWeb.GraphQl.Schema.BasicDataSource
 
   import_types ExAbsWeb.GraphQl.Types
   import_types ExAbsWeb.GraphQl.Queries
@@ -28,6 +31,21 @@ defmodule ExAbsWeb.GraphQl.Schema do
   subscription do
     # Auth
     import_fields :user_subscriptions
+  end
+
+  @spec context(map()) :: map()
+  def context(ctx) do
+    loader =
+      Dataloader.new()
+      |> Dataloader.add_source(Auth.User, BasicDataSource.data())
+      |> Dataloader.add_source(Blog.Post, BasicDataSource.data())
+
+    Map.put(ctx, :loader, loader)
+  end
+
+  @spec plugins() :: list(Absinthe.Plugin.t())
+  def plugins do
+    [Absinthe.Middleware.Dataloader] ++ Absinthe.Plugin.defaults()
   end
 
   @spec middleware(list(Absinthe.Middleware.spec()), Type.Field.t(), Type.Object.t()) :: list(Absinthe.Middleware.spec())

@@ -54,6 +54,7 @@ defmodule ExAbs.MixProject do
       {:absinthe, "~> 1.7"},
       {:absinthe_plug, "~> 1.5"},
       {:absinthe_phoenix, "~> 2.0.2"},
+      {:dataloader, "~> 2.0.0"},
       {:paginator, git: "https://github.com/omarelb/paginator.git", branch: "loosen_plug_crypto_dependency_constraint"},
       {:ex_machina, "~> 2.7.0", only: :test},
       {:credo, "~> 1.7", only: [:dev, :test], runtime: false},

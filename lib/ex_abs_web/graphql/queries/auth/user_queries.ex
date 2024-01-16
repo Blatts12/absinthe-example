@@ -1,7 +1,7 @@
 defmodule ExAbsWeb.GraphQl.Auth.UserQueries do
   @moduledoc false
 
-  use Absinthe.Schema.Notation
+  use ExAbsWeb.GraphQl.Schema.Type
 
   alias ExAbsWeb.GraphQl.Auth.UserResolvers
 

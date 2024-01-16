@@ -1,7 +1,7 @@
 defmodule ExAbsWeb.GraphQl.PaginationTypes do
   @moduledoc false
 
-  use Absinthe.Schema.Notation
+  use ExAbsWeb.GraphQl.Schema.Type
 
   object :pagination_metadata do
     @desc "An opaque cursor representing the last row of the current page."

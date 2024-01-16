@@ -1,7 +1,7 @@
 defmodule ExAbsWeb.GraphQl.Auth.UserSubscriptions do
   @moduledoc false
 
-  use Absinthe.Schema.Notation
+  use ExAbsWeb.GraphQl.Schema.Type
 
   object :user_subscriptions do
     field :user_created, :user do

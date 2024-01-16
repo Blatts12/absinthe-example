@@ -10,13 +10,4 @@ defmodule ExAbsWeb.GraphQl.Blog.PostResolvers do
       {:ok, post}
     end
   end
-
-  @spec list_posts(map(), map(), map()) :: {:ok, [Post.t()]}
-  def list_posts(%{id: user_id}, _args, _resolution) do
-    {:ok, Blog.list_posts_by_user_id(user_id)}
-  end
-
-  def list_posts(_parent, _args, _resolution) do
-    {:ok, []}
-  end
 end

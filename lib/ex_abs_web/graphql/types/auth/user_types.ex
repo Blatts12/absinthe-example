@@ -1,17 +1,14 @@
 defmodule ExAbsWeb.GraphQl.Auth.UserTypes do
   @moduledoc false
 
-  use Absinthe.Schema.Notation
+  use ExAbsWeb.GraphQl.Schema.Type
 
-  alias ExAbsWeb.GraphQl.Blog.PostResolvers
+  alias ExAbs.Blog.Post
 
   object :user do
     field :id, non_null(:id)
     field :username, :string
-
-    field :posts, non_null(list_of(non_null(:post))) do
-      resolve &PostResolvers.list_posts/3
-    end
+    field :posts, non_null(list_of(non_null(:post))), resolve: dataloader(Post)
   end
 
   object :user_pagination do

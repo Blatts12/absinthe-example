@@ -1,7 +1,7 @@
 defmodule ExAbsWeb.GraphQl.Blog.PostMutations do
   @moduledoc false
 
-  use Absinthe.Schema.Notation
+  use ExAbsWeb.GraphQl.Schema.Type
 
   alias ExAbsWeb.GraphQl.Blog.PostResolvers
 

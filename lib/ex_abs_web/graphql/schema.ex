@@ -10,10 +10,11 @@ defmodule ExAbsWeb.GraphQl.Schema do
   alias ExAbsWeb.GraphQl.Schema.BasicDataSource
 
   import_types ExAbsWeb.GraphQl.Types
+  import_types ExAbsWeb.GraphQl.PaginationTypes
+
   import_types ExAbsWeb.GraphQl.Queries
   import_types ExAbsWeb.GraphQl.Mutations
   import_types ExAbsWeb.GraphQl.Subscriptions
-  import_types ExAbsWeb.GraphQl.PaginationTypes
 
   query do
     # Auth
@@ -38,7 +39,7 @@ defmodule ExAbsWeb.GraphQl.Schema do
     loader =
       Dataloader.new()
       |> Dataloader.add_source(Auth.User, BasicDataSource.data())
-      |> Dataloader.add_source(Blog.Post, BasicDataSource.data())
+      |> Dataloader.add_source(Blog.Post, Blog.PostDataSource.data())
 
     Map.put(ctx, :loader, loader)
   end

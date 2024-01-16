@@ -1,15 +1,19 @@
 defmodule ExAbsWeb.GraphQl.Auth.UserMutationsTest do
   use ExAbsWeb.GraphQlCase
 
+  alias Absinthe.Relay.Node
   alias ExAbs.Auth
   alias ExAbs.Auth.User
+  alias ExAbsWeb.GraphQl.Schema
 
   describe "create_user" do
     @create_user """
     mutation createUser($input: CreateUserInput!) {
       createUser(input: $input) {
-        id
-        username
+        user {
+          id
+          username
+        }
       }
     }
     """
@@ -20,16 +24,19 @@ defmodule ExAbsWeb.GraphQl.Auth.UserMutationsTest do
       assert %{
                "data" => %{
                  "createUser" => %{
-                   "id" => id,
-                   "username" => _
+                   "user" => %{
+                     "id" => global_id,
+                     "username" => _
+                   }
                  }
                }
              } =
                gql_post(%{
-                 "query" => @create_user,
-                 "variables" => %{"input" => user_params}
+                 query: @create_user,
+                 variables: %{"input" => user_params}
                })
 
+      {:ok, %{id: id}} = Node.from_global_id(global_id, Schema)
       assert %User{} = Auth.get_user(id)
     end
 
@@ -39,8 +46,8 @@ defmodule ExAbsWeb.GraphQl.Auth.UserMutationsTest do
                "errors" => [%{"message" => "should be at least 4 character(s)", "field" => ["username"]}]
              } =
                gql_post(%{
-                 "query" => @create_user,
-                 "variables" => %{"input" => %{username: "bad"}}
+                 query: @create_user,
+                 variables: %{"input" => %{username: "bad"}}
                })
     end
   end

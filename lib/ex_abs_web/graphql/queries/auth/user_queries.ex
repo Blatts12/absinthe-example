@@ -9,6 +9,8 @@ defmodule ExAbsWeb.GraphQl.Auth.UserQueries do
     field :get_user, :user do
       arg :id, non_null(:id)
 
+      middleware ParseIDs, id: :user
+
       resolve &UserResolvers.get_user/2
     end
 

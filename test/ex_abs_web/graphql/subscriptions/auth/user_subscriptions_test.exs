@@ -5,8 +5,10 @@ defmodule ExAbsWeb.GraphQl.Auth.UserSubscriptionsTest do
     @create_user """
     mutation createUser($input: CreateUserInput!) {
       createUser(input: $input) {
-        id
-        username
+        user {
+          id
+          username
+        }
       }
     }
     """

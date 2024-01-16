@@ -7,7 +7,7 @@ defmodule ExAbsWeb.GraphQl.Auth.UserSubscriptions do
     field :user_created, :user do
       arg :username, :string
 
-      trigger :create_user, topic: fn user -> ["user_created", "user_created:#{user.username}"] end
+      trigger :create_user, topic: fn %{user: user} -> ["user_created", "user_created:#{user.username}"] end
 
       config fn args, _resolution ->
         if Map.has_key?(args, :username) do
@@ -24,6 +24,10 @@ defmodule ExAbsWeb.GraphQl.Auth.UserSubscriptions do
       # resolve fn user, _, _ ->
       #   {:ok, user}
       # end
+
+      resolve fn %{user: user}, _, _ ->
+        {:ok, user}
+      end
     end
   end
 end

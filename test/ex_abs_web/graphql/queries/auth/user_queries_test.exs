@@ -1,6 +1,9 @@
 defmodule ExAbsWeb.GraphQl.Auth.UserQueriesTest do
   use ExAbsWeb.GraphQlCase
 
+  alias Absinthe.Relay.Node
+  alias ExAbsWeb.GraphQl.Schema
+
   describe "get_user" do
     @get_user """
     query getUser($id: ID!) {
@@ -13,29 +16,32 @@ defmodule ExAbsWeb.GraphQl.Auth.UserQueriesTest do
 
     test "returns user when found" do
       user = insert(:user)
+      global_id = Node.to_global_id("User", user.id)
 
       assert %{
                "data" => %{
                  "getUser" => %{
-                   "id" => to_string(user.id),
+                   "id" => global_id,
                    "username" => user.username
                  }
                }
              } ==
                gql_post(%{
                  "query" => @get_user,
-                 "variables" => %{"id" => user.id}
+                 "variables" => %{"id" => global_id}
                })
     end
 
     test "returns 'not_found' error when missing" do
+      global_id = Node.to_global_id("User", -1)
+
       assert %{
                "data" => %{"getUser" => nil},
                "errors" => [%{"message" => "not_found"}]
              } =
                gql_post(%{
                  "query" => @get_user,
-                 "variables" => %{"id" => -1}
+                 "variables" => %{"id" => global_id}
                })
     end
   end
@@ -57,12 +63,15 @@ defmodule ExAbsWeb.GraphQl.Auth.UserQueriesTest do
                "data" => %{
                  "listUsers" => [
                    %{
-                     "id" => to_string(user.id),
-                     "username" => user.username
+                     "id" => global_id,
+                     "username" => _
                    }
                  ]
                }
-             } == gql_post(%{"query" => @list_users})
+             } = gql_post(%{"query" => @list_users})
+
+      {:ok, %{id: id}} = Node.from_global_id(global_id, Schema)
+      assert id == to_string(user.id)
     end
 
     test "returns empty list when missing" do

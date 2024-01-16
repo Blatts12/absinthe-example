@@ -9,6 +9,8 @@ defmodule ExAbsWeb.GraphQl.Blog.PostMutations do
     field :create_post, type: :post do
       arg :input, non_null(:create_post_input)
 
+      middleware ParseIDs, input: [user_id: :user]
+
       resolve &PostResolvers.create_post/2
     end
   end

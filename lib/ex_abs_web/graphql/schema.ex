@@ -12,8 +12,7 @@ defmodule ExAbsWeb.GraphQl.Schema do
 
   node interface do
     resolve_type fn
-      %{__typename: "User"} -> :user
-      %{__typename: "Post"} -> :post
+      %{__typename: schema_name} -> schema_name
     end
   end
 
@@ -43,13 +42,13 @@ defmodule ExAbsWeb.GraphQl.Schema do
   end
 
   @spec context(map()) :: map()
-  def context(ctx) do
+  def context(context) do
     loader =
       Dataloader.new()
       |> Dataloader.add_source(Auth.User, BasicDataSource.data())
       |> Dataloader.add_source(Blog.Post, Blog.PostDataSource.data())
 
-    Map.put(ctx, :loader, loader)
+    Map.put(context, :loader, loader)
   end
 
   @spec plugins() :: list(Absinthe.Plugin.t())

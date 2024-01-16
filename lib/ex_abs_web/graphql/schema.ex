@@ -2,6 +2,7 @@ defmodule ExAbsWeb.GraphQl.Schema do
   @moduledoc false
 
   use Absinthe.Schema
+  use Absinthe.Relay.Schema, :modern
 
   alias Absinthe.Type
   alias ExAbs.Auth

@@ -9,7 +9,7 @@ defmodule ExAbs.Types do
 
   @type field(schema_type) :: schema_type | Association.NotLoaded.t() | nil
 
-  @type id() :: integer()
+  @type id() :: integer() | binary() | String.t()
 
   @type params() :: %{required(binary()) => term()} | %{required(atom()) => term()}
 

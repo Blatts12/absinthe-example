@@ -1,7 +1,10 @@
 defmodule ExAbsWeb.GraphQl.Router do
   use Plug.Router
 
+  alias ExAbsWeb.FetchUserPlug
+
   plug :match
+  plug FetchUserPlug
   plug :dispatch
 
   forward "/graphql",

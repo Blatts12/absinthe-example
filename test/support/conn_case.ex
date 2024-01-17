@@ -34,6 +34,17 @@ defmodule ExAbsWeb.ConnCase do
 
   setup tags do
     ExAbs.DataCase.setup_sandbox(tags)
+
+    on_exit(fn ->
+      # Removing uploaded files
+      File.rm_rf!("#{File.cwd!()}/#{get_root_path()}")
+    end)
+
     {:ok, conn: Phoenix.ConnTest.build_conn()}
+  end
+
+  @spec get_root_path :: String.t()
+  def get_root_path do
+    Application.get_env(:waffle, :root_path)
   end
 end

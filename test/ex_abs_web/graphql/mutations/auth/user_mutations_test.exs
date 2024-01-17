@@ -19,7 +19,13 @@ defmodule ExAbsWeb.GraphQl.Auth.UserMutationsTest do
     """
 
     test "creates user when input is valid" do
-      user_params = params_for(:user)
+      user_params = params_for(:user, avatar: "image_png")
+
+      image = %Plug.Upload{
+        content_type: "image/png",
+        filename: "sample-img.png",
+        path: "./test/support/images/sample-img.png"
+      }
 
       assert %{
                "data" => %{
@@ -33,7 +39,8 @@ defmodule ExAbsWeb.GraphQl.Auth.UserMutationsTest do
              } =
                gql_post(%{
                  query: @create_user,
-                 variables: %{"input" => user_params}
+                 variables: %{"input" => user_params},
+                 image_png: image
                })
 
       {:ok, %{id: id, type: :user}} = Node.from_global_id(global_id, Schema)

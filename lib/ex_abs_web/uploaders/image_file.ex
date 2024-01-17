@@ -7,7 +7,7 @@ defmodule ExAbs.Auth.ImageFileUploader do
   @versions [:original]
   @allowed_extensions ~w(.jpg .jpeg .gif .png .webp)
 
-  @spec validate({Waffle.File.t(), map()}) :: :ok | {:error, String.t()}
+  @spec validate({map(), map()}) :: :ok | {:error, String.t()}
   def validate({file, _}) do
     file_extension = file.file_name |> Path.extname() |> String.downcase()
 
@@ -19,7 +19,7 @@ defmodule ExAbs.Auth.ImageFileUploader do
   end
 
   # Override the storage directory:
-  @spec storage_dir(atom(), {Waffle.File.t(), map()}) :: String.t()
+  @spec storage_dir(atom(), {map(), map()}) :: String.t()
   def storage_dir(_version, {_file, _scope}) do
     get_root_path() <> "/images"
   end

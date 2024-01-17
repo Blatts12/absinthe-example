@@ -20,8 +20,3 @@ defmodule ExAbsWeb.GraphQl.Auth.UserMutations do
     end
   end
 end
-
-# curl -X POST \
-# -F query="mutation { createUser(input: {username: \"username\", avatar: \"image_png\"}) { user { id avatar username }}}" \
-# -F image_png=@image.png \
-# localhost:4000/api/graphql

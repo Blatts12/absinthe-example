@@ -65,6 +65,11 @@ if config_env() == :prod do
     ],
     secret_key_base: secret_key_base
 
+  # Waffle configuration
+  # config :waffle,
+  #   storage: Waffle.Storage.S3,
+  #   bucket: "ez_abs-prod"
+
   # ## SSL Support
   #
   # To get SSL working, you will need to add the `https` key

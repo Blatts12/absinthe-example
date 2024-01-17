@@ -43,3 +43,6 @@ npm-debug.log
 
 # MacOS Finder metadata
 .DS_Store
+
+# Uploads
+/uploads/

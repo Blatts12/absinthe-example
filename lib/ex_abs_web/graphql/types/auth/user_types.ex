@@ -9,6 +9,7 @@ defmodule ExAbsWeb.GraphQl.Auth.UserTypes do
 
   node object(:user) do
     field :username, :string
+    field :avatar, :file
     field :posts, non_null(list_of(non_null(:post))), resolve: dataloader(Post)
   end
 end

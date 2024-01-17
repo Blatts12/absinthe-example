@@ -16,9 +16,10 @@ defmodule ExAbsWeb.GraphQl.Schema do
     end
   end
 
+  # Upload type
+  import_types Absinthe.Plug.Types
   import_types ExAbsWeb.GraphQl.Types
-  import_types ExAbsWeb.GraphQl.PaginationTypes
-
+  import_types ExAbsWeb.GraphQl.ScalarTypes
   import_types ExAbsWeb.GraphQl.Queries
   import_types ExAbsWeb.GraphQl.Mutations
   import_types ExAbsWeb.GraphQl.Subscriptions

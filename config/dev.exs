@@ -72,3 +72,9 @@ config :swoosh, :api_client, false
 
 # Contexted configuration
 config :contexted, enable_recompilation: true
+
+# Waffle configuration
+config :waffle,
+  storage: Waffle.Storage.Local,
+  root_path: "uploads",
+  asset_host: "http://localhost:4000"

@@ -27,8 +27,8 @@ defmodule ExAbsWeb.GraphQl.Auth.UserQueriesTest do
                }
              } ==
                gql_post(%{
-                 "query" => @get_user,
-                 "variables" => %{"id" => global_id}
+                 query: @get_user,
+                 variables: %{"id" => global_id}
                })
     end
 
@@ -40,8 +40,8 @@ defmodule ExAbsWeb.GraphQl.Auth.UserQueriesTest do
                "errors" => [%{"message" => "not_found"}]
              } =
                gql_post(%{
-                 "query" => @get_user,
-                 "variables" => %{"id" => global_id}
+                 query: @get_user,
+                 variables: %{"id" => global_id}
                })
     end
   end
@@ -68,30 +68,32 @@ defmodule ExAbsWeb.GraphQl.Auth.UserQueriesTest do
                    }
                  ]
                }
-             } = gql_post(%{"query" => @list_users})
+             } = gql_post(%{query: @list_users})
 
-      {:ok, %{id: id}} = Node.from_global_id(global_id, Schema)
+      {:ok, %{id: id, type: :user}} = Node.from_global_id(global_id, Schema)
       assert id == to_string(user.id)
     end
 
     test "returns empty list when missing" do
-      assert %{"data" => %{"listUsers" => []}} = gql_post(%{"query" => @list_users})
+      assert %{"data" => %{"listUsers" => []}} = gql_post(%{query: @list_users})
     end
   end
 
   describe "paginate_users" do
     @paginate_users """
-    query paginateUsers($pagination: PaginationInput!) {
-      paginateUsers(pagination: $pagination) {
-        entries {
-          id
-          username
+    query paginateUsers($first: Int, $last: Int, $before: String, $after: String) {
+      paginateUsers(first: $first, last: $last, before: $before, after: $after) {
+        edges {
+          node {
+            id
+            username
+          }
         }
-        metadata {
-          after
-          before
-          limit
-          totalCount
+        pageInfo {
+          endCursor
+          startCursor
+          hasNextPage
+          hasPreviousPage
         }
       }
     }
@@ -103,17 +105,18 @@ defmodule ExAbsWeb.GraphQl.Auth.UserQueriesTest do
       assert %{
                "data" => %{
                  "paginateUsers" => %{
-                   "entries" => users,
-                   "metadata" => %{
-                     "after" => after_cursor,
-                     "limit" => 2
+                   "edges" => users,
+                   "pageInfo" => %{
+                     "endCursor" => end_cursor,
+                     "hasNextPage" => true,
+                     "hasPreviousPage" => false
                    }
                  }
                }
              } =
                gql_post(%{
-                 "query" => @paginate_users,
-                 "variables" => %{"pagination" => %{limit: 2}}
+                 query: @paginate_users,
+                 variables: %{"first" => 2}
                })
 
       assert Enum.count(users) == 2
@@ -121,21 +124,21 @@ defmodule ExAbsWeb.GraphQl.Auth.UserQueriesTest do
       assert %{
                "data" => %{
                  "paginateUsers" => %{
-                   "entries" => users,
-                   "metadata" => %{
-                     "before" => before_cursor,
-                     "limit" => 2
+                   "edges" => users,
+                   "pageInfo" => %{
+                     "endCursor" => _end_cursor,
+                     "hasNextPage" => false,
+                     "hasPreviousPage" => true
                    }
                  }
                }
              } =
                gql_post(%{
-                 "query" => @paginate_users,
-                 "variables" => %{"pagination" => %{limit: 2, after: after_cursor}}
+                 query: @paginate_users,
+                 variables: %{"first" => 2, "after" => end_cursor}
                })
 
       assert Enum.count(users) == 1
-      assert is_binary(before_cursor)
     end
   end
 end

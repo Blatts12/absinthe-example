@@ -5,13 +5,10 @@ defmodule ExAbsWeb.GraphQl.Auth.UserTypes do
 
   alias ExAbs.Blog.Post
 
+  connection(node_type: :user)
+
   node object(:user) do
     field :username, :string
     field :posts, non_null(list_of(non_null(:post))), resolve: dataloader(Post)
-  end
-
-  object :user_pagination do
-    field :entries, list_of(:user)
-    field :metadata, :pagination_metadata
   end
 end

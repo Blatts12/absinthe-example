@@ -14,22 +14,22 @@ defmodule ExAbs.Auth.UsersTest do
   describe "paginate_users/1" do
     test "returns 2 users per page" do
       insert_list(5, :user)
-      params = %{limit: 2}
+      params = %{first: 2}
 
-      %{entries: users, metadata: metadata} = Auth.paginate_users(params)
-      assert Enum.count(users) == 2
+      {:ok, %{edges: edges, page_info: page_info}} = Auth.paginate_users(params)
+      assert Enum.count(edges) == 2
 
-      params = %{limit: 2, after: metadata.after}
-      %{entries: users, metadata: metadata} = Auth.paginate_users(params)
-      assert Enum.count(users) == 2
+      params = %{first: 2, after: page_info.end_cursor}
+      {:ok, %{edges: edges, page_info: page_info}} = Auth.paginate_users(params)
+      assert Enum.count(edges) == 2
 
-      params = %{limit: 2, after: metadata.after}
-      %{entries: users, metadata: metadata} = Auth.paginate_users(params)
-      assert Enum.count(users) == 1
+      params = %{first: 2, after: page_info.end_cursor}
+      {:ok, %{edges: edges, page_info: page_info}} = Auth.paginate_users(params)
+      assert Enum.count(edges) == 1
 
-      params = %{limit: 2, before: metadata.before}
-      %{entries: users} = Auth.paginate_users(params)
-      assert Enum.count(users) == 2
+      params = %{last: 2, before: page_info.start_cursor}
+      {:ok, %{edges: edges}} = Auth.paginate_users(params)
+      assert Enum.count(edges) == 2
     end
   end
 

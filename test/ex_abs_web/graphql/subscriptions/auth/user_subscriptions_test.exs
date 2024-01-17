@@ -28,8 +28,8 @@ defmodule ExAbsWeb.GraphQl.Auth.UserSubscriptionsTest do
       user_params = params_for(:user)
 
       gql_post(%{
-        "query" => @create_user,
-        "variables" => %{"input" => user_params}
+        query: @create_user,
+        variables: %{"input" => user_params}
       })
 
       assert_push "subscription:data", %{result: result, subscriptionId: ^subscription_id}
@@ -58,8 +58,8 @@ defmodule ExAbsWeb.GraphQl.Auth.UserSubscriptionsTest do
       subscription_id = subscribe(socket, @user_created, variables: %{"username" => "name-one"})
 
       gql_post(%{
-        "query" => @create_user,
-        "variables" => %{"input" => params_for(:user, username: "name-one")}
+        query: @create_user,
+        variables: %{"input" => params_for(:user, username: "name-one")}
       })
 
       assert_push "subscription:data", %{result: result, subscriptionId: ^subscription_id}
@@ -77,8 +77,8 @@ defmodule ExAbsWeb.GraphQl.Auth.UserSubscriptionsTest do
       refute_push "subscription:data", %{}
 
       gql_post(%{
-        "query" => @create_user,
-        "variables" => %{"input" => params_for(:user, username: "name-two")}
+        query: @create_user,
+        variables: %{"input" => params_for(:user, username: "name-two")}
       })
 
       # Ensure that no pushes were sent

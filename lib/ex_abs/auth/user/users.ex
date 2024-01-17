@@ -3,29 +3,21 @@ defmodule ExAbs.Auth.Users do
 
   import Ecto.Query, warn: false
 
+  alias Absinthe.Relay
   alias ExAbs.Auth.User
   alias ExAbs.Repo
   alias ExAbs.Types
-  alias Paginator.Page
 
   @spec list_users() :: list(User.t())
   def list_users do
     Repo.all(User)
   end
 
-  @spec paginate_users() :: Page.t()
-  @spec paginate_users(map()) :: Page.t()
-  def paginate_users(pagination \\ %{}) do
-    # This is only a simple example of pagination.
-    # Missing: opts validation, error handling, etc.
+  @spec paginate_users(map()) :: {:ok, map()} | {:error, term()}
+  def paginate_users(args) do
+    query = from u in User, order_by: [desc: u.inserted_at]
 
-    repo_pagination =
-      pagination
-      |> Enum.into(Keyword.new())
-      |> Keyword.put_new(:limit, 20)
-      |> Keyword.put(:cursor_fields, [:inserted_at, :id])
-
-    Repo.paginate(User, repo_pagination)
+    Relay.Connection.from_query(query, &Repo.all/1, args)
   end
 
   @spec get_user!(Types.id()) :: User.t()

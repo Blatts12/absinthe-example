@@ -36,7 +36,7 @@ defmodule ExAbsWeb.GraphQl.Auth.UserMutationsTest do
                  variables: %{"input" => user_params}
                })
 
-      {:ok, %{id: id}} = Node.from_global_id(global_id, Schema)
+      {:ok, %{id: id, type: :user}} = Node.from_global_id(global_id, Schema)
       assert %User{} = Auth.get_user(id)
     end
 

@@ -22,7 +22,7 @@ defmodule ExAbsWeb.GraphQl.Auth.UserResolvers do
     Auth.paginate_users(args)
   end
 
-  @spec create_user(map(), map()) :: {:ok, User.t()} | {:error, term()}
+  @spec create_user(map(), map()) :: {:ok, %{user: User.t()}} | {:error, term()}
   def create_user(args, _resolution) do
     with {:ok, %User{} = user} <- Auth.create_user(args) do
       # This is how you publish a subscription event from a resolver
@@ -31,5 +31,14 @@ defmodule ExAbsWeb.GraphQl.Auth.UserResolvers do
 
       {:ok, %{user: user}}
     end
+  end
+
+  @spec create_user(map(), map()) :: {:ok, User.t()} | {:error, term()}
+  def current_user(_args, %{context: %{current_user: current_user}}) do
+    {:ok, current_user}
+  end
+
+  def current_user(_args, _resolution) do
+    {:error, :unauthorized}
   end
 end

@@ -6,6 +6,10 @@ defmodule ExAbsWeb.GraphQl.Auth.UserQueries do
   alias ExAbsWeb.GraphQl.Auth.UserResolvers
 
   object :user_queries do
+    field :current_user, :user do
+      resolve &UserResolvers.current_user/2
+    end
+
     field :get_user, :user do
       arg :id, non_null(:id)
 

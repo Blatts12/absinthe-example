@@ -9,6 +9,7 @@ defmodule ExAbsWeb.GraphQl.Schema.Type do
       import Absinthe.Resolution.Helpers
 
       alias Absinthe.Relay.Node.ParseIDs
+      alias ExAbsWeb.GraphQl.Authenticated
     end
   end
 end

@@ -7,6 +7,8 @@ defmodule ExAbsWeb.GraphQl.Auth.UserQueries do
 
   object :user_queries do
     field :current_user, :user do
+      middleware Authenticated
+
       resolve &UserResolvers.current_user/2
     end
 

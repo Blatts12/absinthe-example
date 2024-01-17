@@ -34,11 +34,7 @@ defmodule ExAbsWeb.GraphQl.Auth.UserResolvers do
   end
 
   @spec create_user(map(), map()) :: {:ok, User.t()} | {:error, term()}
-  def current_user(_args, %{context: %{current_user: current_user}}) do
-    {:ok, current_user}
-  end
-
-  def current_user(_args, _resolution) do
-    {:error, :unauthorized}
+  def current_user(_args, %{context: %{current_user: user}}) do
+    {:ok, user}
   end
 end

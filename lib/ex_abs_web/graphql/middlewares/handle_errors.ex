@@ -1,5 +1,6 @@
 defmodule ExAbsWeb.GraphQl.HandleErrors do
   @moduledoc false
+
   @behaviour Absinthe.Middleware
 
   alias Ecto.Changeset

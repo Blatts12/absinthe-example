@@ -1,10 +1,11 @@
 defmodule ExAbs.AccountsTest do
   use ExAbs.DataCase
 
-  alias ExAbs.Accounts
-
   import ExAbs.AccountsFixtures
-  alias ExAbs.Accounts.{User, UserToken}
+
+  alias ExAbs.Accounts
+  alias ExAbs.Accounts.User
+  alias ExAbs.Accounts.UserToken
 
   describe "get_user_by_email/1" do
     test "does not return the user if the email does not exist" do

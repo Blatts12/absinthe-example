@@ -1,5 +1,8 @@
 defmodule ExAbs.Accounts.User do
+  @moduledoc false
+
   use Ecto.Schema
+
   import Ecto.Changeset
 
   schema "users" do
@@ -125,7 +128,7 @@ defmodule ExAbs.Accounts.User do
   Confirms the account by setting `confirmed_at`.
   """
   def confirm_changeset(user) do
-    now = NaiveDateTime.utc_now() |> NaiveDateTime.truncate(:second)
+    now = NaiveDateTime.truncate(NaiveDateTime.utc_now(), :second)
     change(user, confirmed_at: now)
   end
 

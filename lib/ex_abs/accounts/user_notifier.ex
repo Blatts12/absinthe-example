@@ -1,4 +1,6 @@
 defmodule ExAbs.Accounts.UserNotifier do
+  @moduledoc false
+
   import Swoosh.Email
 
   alias ExAbs.Mailer

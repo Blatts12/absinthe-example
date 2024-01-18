@@ -1,4 +1,4 @@
-defmodule ExAbs.Auth.ImageFileUploader do
+defmodule ExAbs.Uploader.ImageFile do
   @moduledoc false
 
   use Waffle.Definition

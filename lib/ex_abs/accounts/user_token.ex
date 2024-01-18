@@ -1,6 +1,10 @@
 defmodule ExAbs.Accounts.UserToken do
+  @moduledoc false
+
   use Ecto.Schema
+
   import Ecto.Query
+
   alias ExAbs.Accounts.UserToken
 
   @hash_algorithm :sha256

@@ -5,8 +5,7 @@ defmodule ExAbsWeb.GraphQl.Schema do
   use Absinthe.Relay.Schema, :modern
 
   alias Absinthe.Type
-  alias ExAbs.Auth
-  alias ExAbs.Blog
+  alias ExAbs.Accounts
   alias ExAbsWeb.GraphQl.HandleErrors
   alias ExAbsWeb.GraphQl.Schema.BasicDataSource
 
@@ -25,29 +24,21 @@ defmodule ExAbsWeb.GraphQl.Schema do
   import_types ExAbsWeb.GraphQl.Subscriptions
 
   query do
-    # Auth
-    import_fields :user_queries
+    field :example, :string do
+      resolve fn _, _ -> "Hello World" end
+    end
   end
 
-  mutation do
-    # Auth
-    import_fields :user_mutations
+  # mutation do
+  # end
 
-    # Blog
-    import_fields :post_mutations
-  end
-
-  subscription do
-    # Auth
-    import_fields :user_subscriptions
-  end
+  # subscription do
+  # end
 
   @spec context(map()) :: map()
   def context(context) do
     loader =
-      Dataloader.new()
-      |> Dataloader.add_source(Auth.User, BasicDataSource.data())
-      |> Dataloader.add_source(Blog.Post, Blog.PostDataSource.data())
+      Dataloader.add_source(Dataloader.new(), Accounts.User, BasicDataSource.data())
 
     Map.put(context, :loader, loader)
   end

@@ -4,7 +4,4 @@ defmodule ExAbsWeb.GraphQl.Queries do
   """
 
   use Absinthe.Schema.Notation
-
-  # Auth
-  import_types(ExAbsWeb.GraphQl.Auth.UserQueries)
 end

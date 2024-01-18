@@ -56,10 +56,14 @@ defmodule ExAbs.Accounts.UserToken do
   and devices in the UI and allow users to explicitly expire any
   session they deem invalid.
   """
-  @spec build_session_token(User.t()) :: {binary, UserToken.t()}
+  @spec build_session_token(User.t()) :: UserToken.t()
   def build_session_token(user) do
-    token = :crypto.strong_rand_bytes(@rand_size)
-    {token, %UserToken{token: token, context: "session", user_id: user.id}}
+    token =
+      @rand_size
+      |> :crypto.strong_rand_bytes()
+      |> Base.url_encode64(padding: false)
+
+    %UserToken{token: token, context: "session", user_id: user.id}
   end
 
   @doc """

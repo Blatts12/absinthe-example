@@ -235,11 +235,11 @@ defmodule ExAbs.Accounts do
   @doc """
   Generates a session token.
   """
-  @spec generate_user_session_token(User.t()) :: String.t()
+  @spec generate_user_session_token(User.t()) :: UserToken.t() | nil
   def generate_user_session_token(user) do
-    {token, user_token} = UserToken.build_session_token(user)
-    Repo.insert!(user_token)
-    token
+    user
+    |> UserToken.build_session_token()
+    |> Repo.insert!()
   end
 
   @doc """

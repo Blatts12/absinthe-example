@@ -17,6 +17,10 @@ defmodule ExAbsWeb.GraphQl.Schema do
 
   # Upload type
   import_types Absinthe.Plug.Types
+
+  # Custom types (datetime, native_datetime, etc.)
+  import_types Absinthe.Type.Custom
+
   import_types ExAbsWeb.GraphQl.Types
   import_types ExAbsWeb.GraphQl.ScalarTypes
   import_types ExAbsWeb.GraphQl.Queries
@@ -24,13 +28,14 @@ defmodule ExAbsWeb.GraphQl.Schema do
   import_types ExAbsWeb.GraphQl.Subscriptions
 
   query do
-    field :example, :string do
-      resolve fn _, _ -> "Hello World" end
-    end
+    # Accounts
+    import_fields :user_queries
   end
 
-  # mutation do
-  # end
+  mutation do
+    # Accounts
+    import_fields :user_token_mutations
+  end
 
   # subscription do
   # end

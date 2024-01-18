@@ -317,7 +317,7 @@ defmodule ExAbs.AccountsTest do
     end
 
     test "generates a token", %{user: user} do
-      token = Accounts.generate_user_session_token(user)
+      %{token: token} = Accounts.generate_user_session_token(user)
       assert user_token = Repo.get_by(UserToken, token: token)
       assert user_token.context == "session"
 
@@ -335,7 +335,7 @@ defmodule ExAbs.AccountsTest do
   describe "get_user_by_session_token/1" do
     setup do
       user = user_fixture()
-      token = Accounts.generate_user_session_token(user)
+      %{token: token} = Accounts.generate_user_session_token(user)
       %{user: user, token: token}
     end
 
@@ -357,7 +357,7 @@ defmodule ExAbs.AccountsTest do
   describe "delete_user_session_token/1" do
     test "deletes the token" do
       user = user_fixture()
-      token = Accounts.generate_user_session_token(user)
+      %{token: token} = Accounts.generate_user_session_token(user)
       assert Accounts.delete_user_session_token(token) == :ok
       refute Accounts.get_user_by_session_token(token)
     end

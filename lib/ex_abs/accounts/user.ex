@@ -5,6 +5,17 @@ defmodule ExAbs.Accounts.User do
 
   import Ecto.Changeset
 
+  alias __MODULE__
+
+  @type t() :: %ExAbs.Accounts.User{
+          confirmed_at: NaiveDateTime.t() | nil,
+          email: String.t() | nil,
+          hashed_password: String.t() | nil,
+          id: integer() | nil,
+          inserted_at: DateTime.t() | nil,
+          updated_at: DateTime.t() | nil
+        }
+
   schema "users" do
     field :email, :string
     field :password, :string, virtual: true, redact: true
@@ -37,6 +48,8 @@ defmodule ExAbs.Accounts.User do
       submitting the form), this option can be set to `false`.
       Defaults to `true`.
   """
+  @spec registration_changeset(User.t(), map()) :: Ecto.Changeset.t()
+  @spec registration_changeset(User.t(), map(), Keyword.t()) :: Ecto.Changeset.t()
   def registration_changeset(user, attrs, opts \\ []) do
     user
     |> cast(attrs, [:email, :password])
@@ -95,6 +108,8 @@ defmodule ExAbs.Accounts.User do
 
   It requires the email to change otherwise an error is added.
   """
+  @spec email_changeset(User.t(), map()) :: Ecto.Changeset.t()
+  @spec email_changeset(User.t(), map(), Keyword.t()) :: Ecto.Changeset.t()
   def email_changeset(user, attrs, opts \\ []) do
     user
     |> cast(attrs, [:email])
@@ -117,6 +132,8 @@ defmodule ExAbs.Accounts.User do
       validations on a LiveView form), this option can be set to `false`.
       Defaults to `true`.
   """
+  @spec password_changeset(User.t(), map()) :: Ecto.Changeset.t()
+  @spec password_changeset(User.t(), map(), Keyword.t()) :: Ecto.Changeset.t()
   def password_changeset(user, attrs, opts \\ []) do
     user
     |> cast(attrs, [:password])
@@ -127,6 +144,7 @@ defmodule ExAbs.Accounts.User do
   @doc """
   Confirms the account by setting `confirmed_at`.
   """
+  @spec confirm_changeset(User.t() | Ecto.Changeset.t()) :: Ecto.Changeset.t()
   def confirm_changeset(user) do
     now = NaiveDateTime.truncate(NaiveDateTime.utc_now(), :second)
     change(user, confirmed_at: now)
@@ -138,6 +156,7 @@ defmodule ExAbs.Accounts.User do
   If there is no user or the user doesn't have a password, we call
   `Bcrypt.no_user_verify/0` to avoid timing attacks.
   """
+  @spec valid_password?(User.t(), String.t()) :: boolean()
   def valid_password?(%ExAbs.Accounts.User{hashed_password: hashed_password}, password)
       when is_binary(hashed_password) and byte_size(password) > 0 do
     Bcrypt.verify_pass(password, hashed_password)
@@ -151,6 +170,7 @@ defmodule ExAbs.Accounts.User do
   @doc """
   Validates the current password otherwise adds an error to the changeset.
   """
+  @spec validate_current_password(Ecto.Changeset.t(), String.t()) :: Ecto.Changeset.t()
   def validate_current_password(changeset, password) do
     if valid_password?(changeset.data, password) do
       changeset

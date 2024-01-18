@@ -3,7 +3,7 @@ defmodule ExAbsWeb.GraphQl.ScalarTypes do
 
   use ExAbsWeb.GraphQl.Schema.Type
 
-  alias ExAbs.Auth.ImageFileUploader
+  alias ExAbs.Uploader.ImageFile
 
   @image_extensions ~w(.jpg .jpeg .gif .png .webp)
 
@@ -17,7 +17,7 @@ defmodule ExAbsWeb.GraphQl.ScalarTypes do
         ext = file_name |> Path.extname() |> String.downcase()
 
         if Enum.member?(@image_extensions, ext) do
-          ImageFileUploader.url(file)
+          ImageFile.url(file)
         else
           ""
         end

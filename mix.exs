@@ -36,7 +36,7 @@ defmodule ExAbs.MixProject do
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:bcrypt_elixir, "~> 3.0"},
+      {:pbkdf2_elixir, "~> 2.0"},
       {:phoenix, "~> 1.7.10"},
       {:phoenix_ecto, "~> 4.4"},
       {:phoenix_pubsub, "~> 2.0"},

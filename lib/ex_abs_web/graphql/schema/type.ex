@@ -10,6 +10,8 @@ defmodule ExAbsWeb.GraphQl.Schema.Type do
 
       alias Absinthe.Relay.Node.ParseIDs
       alias ExAbsWeb.GraphQl.Authenticated
+      alias ExAbsWeb.GraphQl.AuthorizeResource
+      alias ExAbsWeb.GraphQl.LoadResource
       alias ExAbsWeb.GraphQl.Schema.BasicDataSource
       alias ExAbsWeb.GraphQl.Unauthenticated
     end

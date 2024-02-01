@@ -7,10 +7,12 @@ defmodule ExAbsWeb.GraphQl.HandleErrors do
 
   @type absinthe_error() :: %{
           required(:message) => String.t(),
-          required(:code) => atom(),
-          optional(:validation) => String.t(),
-          optional(:constraint) => String.t(),
-          optional(:field) => [String.t()] | nil
+          required(:details) => %{
+            required(:code) => atom(),
+            optional(:validation) => String.t(),
+            optional(:constraint) => String.t(),
+            optional(:field) => [String.t()] | nil
+          }
         }
 
   @spec call(Absinthe.Resolution.t(), any()) :: Absinthe.Resolution.t()
@@ -40,20 +42,24 @@ defmodule ExAbsWeb.GraphQl.HandleErrors do
       %{message: message, validation: validation} ->
         [
           %{
-            code: :validation_failed,
             message: message,
-            validation: to_string(validation),
-            field: Enum.reverse(path)
+            details: %{
+              code: :validation_failed,
+              validation: to_string(validation),
+              field: Enum.reverse(path)
+            }
           }
         ]
 
       %{message: message, constraint: constraint} ->
         [
           %{
-            code: :validation_failed,
             message: message,
-            constraint: to_string(constraint),
-            field: Enum.reverse(path)
+            details: %{
+              code: :validation_failed,
+              constraint: to_string(constraint),
+              field: Enum.reverse(path)
+            }
           }
         ]
 
@@ -61,9 +67,11 @@ defmodule ExAbsWeb.GraphQl.HandleErrors do
       {:message, message} when is_binary(message) ->
         [
           %{
-            code: :validation_failed,
             message: Gettext.gettext(ExAbsWeb.Gettext, message),
-            field: Enum.reverse(path)
+            details: %{
+              code: :validation_failed,
+              field: Enum.reverse(path)
+            }
           }
         ]
 
@@ -71,9 +79,11 @@ defmodule ExAbsWeb.GraphQl.HandleErrors do
       %{message: message} when is_binary(message) ->
         [
           %{
-            code: :validation_failed,
             message: message,
-            field: Enum.reverse(path)
+            details: %{
+              code: :validation_failed,
+              field: Enum.reverse(path)
+            }
           }
         ]
 

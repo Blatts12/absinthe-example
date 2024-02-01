@@ -3,7 +3,7 @@ defmodule ExAbsWeb.GraphQl.Authenticated do
 
   @behaviour Absinthe.Middleware
 
-  @spec call(Absinthe.Resolution.t(), any()) :: Absinthe.Resolution.t()
+  @spec call(Absinthe.Resolution.t(), term()) :: Absinthe.Resolution.t()
   def call(%{context: %{current_user: %{id: _}}} = resolution, _config) do
     resolution
   end

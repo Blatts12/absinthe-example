@@ -7,6 +7,7 @@ defmodule ExAbs.Accounts.UserToken do
 
   alias ExAbs.Accounts.User
   alias ExAbs.Accounts.UserToken
+  alias ExAbs.Accounts.UserTokenSpec
 
   @hash_algorithm :sha256
   @rand_size 32
@@ -18,21 +19,13 @@ defmodule ExAbs.Accounts.UserToken do
   @change_email_validity_in_days 7
   @session_validity_in_days 60
 
-  @type t() :: %ExAbs.Accounts.UserToken{
-          id: integer() | nil,
-          token: binary() | nil,
-          context: String.t() | nil,
-          sent_to: String.t() | nil,
-          user: User.t() | nil | Ecto.Association.NotLoaded.t(),
-          user_id: integer() | nil,
-          inserted_at: DateTime.t() | nil
-        }
+  @type t() :: UserTokenSpec.t()
 
   schema "users_tokens" do
     field :token, :binary
     field :context, :string
     field :sent_to, :string
-    belongs_to :user, ExAbs.Accounts.User
+    belongs_to :user, User
 
     timestamps(updated_at: false)
   end

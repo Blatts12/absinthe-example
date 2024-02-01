@@ -17,7 +17,7 @@ defmodule ExAbsWeb.GraphQl.Accounts.UserTokenMutationsTest do
     """
 
     test "returns a user token with valid credentials" do
-      user = AccountsFixtures.user_fixture(%{password: "zaq1@WSX1234"})
+      user = insert(:user)
 
       %{"data" => %{"login" => %{"userToken" => %{"id" => _, "token" => token}}}} =
         gql_post(%{
@@ -105,7 +105,7 @@ defmodule ExAbsWeb.GraphQl.Accounts.UserTokenMutationsTest do
         "data" => %{"register" => nil},
         "errors" => [
           %{
-            "field" => ["password"],
+            "details" => %{"field" => ["password"]},
             "message" => "should be at least 12 character(s)"
           }
         ]

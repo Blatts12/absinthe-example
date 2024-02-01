@@ -14,6 +14,8 @@ defmodule ExAbsWeb.GraphQl.Accounts.UserQueries do
     end
 
     field :get_user, non_null(:user) do
+      middleware Authenticated
+
       arg :id, non_null(:id)
 
       middleware ParseIDs, id: :user

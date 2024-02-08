@@ -10,12 +10,20 @@ defmodule AppWeb.GraphQl.Schema do
   # datetime, native_datetime, decimal
   import_types Absinthe.Type.Custom
 
+  @desc "You can describe enums as well"
+  enum :post_type do
+    value :announcement
+    value :advertisement
+    value :tutorial, as: "GUIDE"
+  end
+
   object :post do
     field :title, :string
     field :id, non_null(:id)
     field :user_id, non_null(:id)
     field :inserted_at, non_null(:naive_datetime)
     field :updated_at, non_null(:naive_datetime)
+    field :type, :post_type
 
     field :user, non_null(:user) do
       resolve fn post, _args, _resolution ->

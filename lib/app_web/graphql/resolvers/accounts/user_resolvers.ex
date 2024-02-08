@@ -20,4 +20,12 @@ defmodule AppWeb.GraphQl.Accounts.UserResolvers do
     users = Repo.all(from u in User, where: u.id in ^user_ids)
     Map.new(users, fn user -> {user.id, user} end)
   end
+
+  def current_user(_args, %{context: %{current_user: user}}) do
+    {:ok, user}
+  end
+
+  def current_user(_args, _resolution) do
+    {:error, :unauthorized}
+  end
 end

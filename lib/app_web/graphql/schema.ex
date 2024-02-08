@@ -48,6 +48,9 @@ defmodule AppWeb.GraphQl.Schema do
   end
 
   mutation do
+    # Accounts
+    import_fields :user_token_mutations
+
     # Blog
     import_fields :post_mutations
   end

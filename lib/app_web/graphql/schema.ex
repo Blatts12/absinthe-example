@@ -3,13 +3,15 @@ defmodule AppWeb.GraphQl.Schema do
   use Absinthe.Relay.Schema, :modern
 
   alias App.Blog
+  alias App.Accounts
   alias AppWeb.GraphQl.Middleware.HandleChangesetErrors
   alias AppWeb.GraphQl.Schema.BasicDataSource
 
   node interface do
     resolve_type fn
-      %{__typename: "Post"} -> "BigPost"
-      %{__typename: schema_name} -> schema_name
+      %Blog.Post{}, _ -> :post
+      %Accounts.User{}, _ -> :user
+      _, _ -> nil
     end
   end
 
@@ -23,6 +25,19 @@ defmodule AppWeb.GraphQl.Schema do
   import_types AppWeb.GraphQl.Types
 
   query do
+    node field do
+      resolve fn
+        %{type: :user, id: id}, _ ->
+          {:ok, App.Accounts.get_user(id)}
+
+        %{type: :post, id: id}, _ ->
+          {:ok, App.Blog.get_post(id)}
+
+        _, _ ->
+          {:error, :invalid_global_id}
+      end
+    end
+
     # Accounts
     import_fields :user_queries
 

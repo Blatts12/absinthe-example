@@ -1,6 +1,8 @@
 defmodule AppWeb.GraphQl.Schema do
   use Absinthe.Schema
 
+  alias App.Blog.Post
+
   # datetime, native_datetime, decimal
   import_types Absinthe.Type.Custom
 
@@ -18,10 +20,15 @@ defmodule AppWeb.GraphQl.Schema do
   end
 
   query do
-    field :get_post, :post do
+    field :get_post, non_null(:post) do
       arg :id, non_null(:id)
 
-      resolve fn %{id: id}, _ -> {:ok, App.Blog.get_post(id)} end
+      resolve fn %{id: id}, _ ->
+        case App.Blog.get_post(id) do
+          %Post{} = post -> {:ok, post}
+          _ -> {:error, :not_found}
+        end
+      end
     end
   end
 

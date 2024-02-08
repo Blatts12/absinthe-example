@@ -20,6 +20,11 @@ defmodule App.BlogTest do
       assert Blog.get_post!(post.id) == post
     end
 
+    test "get_post/1 returns the post with given id" do
+      post = post_fixture()
+      assert Blog.get_post(post.id) == post
+    end
+
     test "create_post/1 with valid data creates a post" do
       valid_attrs = %{title: "some title"}
 

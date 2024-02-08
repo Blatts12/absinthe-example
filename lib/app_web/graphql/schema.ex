@@ -20,8 +20,14 @@ defmodule AppWeb.GraphQl.Schema do
     end
   end
 
-  # mutation do
-  # end
+  mutation do
+    field :create_post, non_null(:post) do
+      arg :title, non_null(:string)
+      arg :user_id, non_null(:id)
+
+      resolve fn args, _ -> {:ok, App.Blog.create_post(args)} end
+    end
+  end
 
   # subscription do
   # end

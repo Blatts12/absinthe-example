@@ -13,6 +13,7 @@ defmodule AppWeb.GraphQl.Schema do
     field :user_id, non_null(:id)
     field :inserted_at, non_null(:naive_datetime)
     field :updated_at, non_null(:naive_datetime)
+    field :user, non_null(:user), resolve: &get_user/3
   end
 
   input_object :create_post_input do
@@ -39,6 +40,11 @@ defmodule AppWeb.GraphQl.Schema do
       resolve &get_post/2
     end
 
+    field :list_posts, list_of(:post) do
+      arg :date, :date
+      resolve &list_posts/3
+    end
+
     field :get_user, non_null(:user) do
       arg :id, non_null(:id)
       resolve &get_user/2
@@ -61,6 +67,10 @@ defmodule AppWeb.GraphQl.Schema do
       %User{} = user -> {:ok, user}
       _ -> {:error, :not_found}
     end
+  end
+
+  def get_user(%{user_id: user_id}, _args, _resolution) do
+    {:ok, App.Accounts.get_user(user_id)}
   end
 
   def get_post(%{id: id}, _resolution) do

@@ -1,6 +1,9 @@
 defmodule AppWeb.GraphQl.Schema do
   use Absinthe.Schema
 
+  import Ecto.Query
+  import Absinthe.Resolution.Helpers
+
   alias App.Accounts.User
   alias App.Blog.Post
 
@@ -13,7 +16,14 @@ defmodule AppWeb.GraphQl.Schema do
     field :user_id, non_null(:id)
     field :inserted_at, non_null(:naive_datetime)
     field :updated_at, non_null(:naive_datetime)
-    field :user, non_null(:user), resolve: &get_user/3
+
+    field :user, non_null(:user) do
+      resolve fn post, _args, _resolution ->
+        batch({__MODULE__, :list_users_by_ids, User}, post.user_id, fn batch_results ->
+          {:ok, Map.get(batch_results, post.user_id)}
+        end)
+      end
+    end
   end
 
   input_object :create_post_input do
@@ -71,6 +81,11 @@ defmodule AppWeb.GraphQl.Schema do
 
   def get_user(%{user_id: user_id}, _args, _resolution) do
     {:ok, App.Accounts.get_user(user_id)}
+  end
+
+  def list_users_by_ids(_model, user_ids) do
+    users = App.Repo.all(from u in User, where: u.id in ^user_ids)
+    Map.new(users, fn user -> {user.id, user} end)
   end
 
   def get_post(%{id: id}, _resolution) do

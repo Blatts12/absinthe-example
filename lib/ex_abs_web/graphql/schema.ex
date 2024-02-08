@@ -5,7 +5,6 @@ defmodule ExAbsWeb.GraphQl.Schema do
   use Absinthe.Relay.Schema, :modern
 
   alias Absinthe.Type
-  alias ExAbs.Accounts
   alias ExAbsWeb.GraphQl.HandleErrors
   alias ExAbsWeb.GraphQl.Schema.BasicDataSource
 
@@ -43,7 +42,7 @@ defmodule ExAbsWeb.GraphQl.Schema do
   @spec context(map()) :: map()
   def context(context) do
     loader =
-      Dataloader.add_source(Dataloader.new(), Accounts.User, BasicDataSource.data())
+      Dataloader.add_source(Dataloader.new(), :basic, BasicDataSource.data())
 
     Map.put(context, :loader, loader)
   end

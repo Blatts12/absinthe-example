@@ -5,10 +5,10 @@ defmodule ExAbs.Accounts.UserSpec do
   alias ExAbs.Types
 
   @type t() :: %User{
-          confirmed_at: Types.field(NaiveDateTime.t()),
+          id: Types.field(Types.id()),
           email: Types.field(String.t()),
           hashed_password: Types.field(String.t()),
-          id: Types.field(Types.id()),
+          confirmed_at: Types.field(NaiveDateTime.t()),
           inserted_at: Types.field(DateTime.t()),
           updated_at: Types.field(DateTime.t())
         }

@@ -31,3 +31,8 @@ config :logger, level: :warning
 
 # Initialize plugs at runtime for faster test compilation
 config :phoenix, :plug_init_mode, :runtime
+
+config :waffle,
+  storage: Waffle.Storage.Local,
+  root_path: "uploads/tests",
+  asset_host: "http://localhost"

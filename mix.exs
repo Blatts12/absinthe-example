@@ -49,7 +49,9 @@ defmodule App.MixProject do
       {:absinthe_plug, "~> 1.5"},
       {:absinthe_phoenix, "~> 2.0.2"},
       {:dataloader, "~> 2.0.0"},
-      {:absinthe_relay, "~> 1.5.0"}
+      {:absinthe_relay, "~> 1.5.0"},
+      {:waffle, "~> 1.1"},
+      {:waffle_ecto, "~> 0.0.12"}
     ]
   end
 

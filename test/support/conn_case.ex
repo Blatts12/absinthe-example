@@ -33,6 +33,16 @@ defmodule AppWeb.ConnCase do
 
   setup tags do
     App.DataCase.setup_sandbox(tags)
+
+    on_exit(fn ->
+      # Removing uploaded files
+      File.rm_rf!("#{File.cwd!()}/#{get_root_path()}")
+    end)
+
     {:ok, conn: Phoenix.ConnTest.build_conn()}
+  end
+
+  def get_root_path do
+    Application.get_env(:waffle, :root_path)
   end
 end

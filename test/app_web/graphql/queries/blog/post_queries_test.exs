@@ -3,6 +3,7 @@ defmodule AppWeb.GraphQl.Blog.PostQueriesTest do
 
   alias App.AccountsFixtures
   alias App.BlogFixtures
+  alias AppWeb.GraphQl.Schema
 
   describe "get_post" do
     @get_post """
@@ -17,11 +18,12 @@ defmodule AppWeb.GraphQl.Blog.PostQueriesTest do
     test "returns post when found" do
       user = AccountsFixtures.user_fixture()
       post = BlogFixtures.post_fixture(%{user_id: user.id})
+      post_id = Absinthe.Relay.Node.to_global_id("Post", post.id, Schema)
 
       assert %{
                "data" => %{
                  "getPost" => %{
-                   "id" => to_string(post.id),
+                   "id" => post_id,
                    "title" => post.title
                  }
                }

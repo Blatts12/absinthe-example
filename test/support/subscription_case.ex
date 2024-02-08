@@ -14,8 +14,6 @@ defmodule AppWeb.SubscriptionCase do
 
       import AppWeb.GraphQlHelpers
 
-      @endpoint AppWeb.Endpoint
-
       defp create_socket(params \\ %{}) do
         {:ok, socket} = ChannelTest.connect(AppWeb.UserSocket, params)
         {:ok, socket} = SubscriptionTest.join_absinthe(socket)

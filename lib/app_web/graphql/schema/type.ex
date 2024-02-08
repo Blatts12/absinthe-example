@@ -6,10 +6,11 @@ defmodule AppWeb.GraphQl.Schema.Type do
 
       import Absinthe.Resolution.Helpers
 
+      alias Absinthe.Relay.Node.ParseIDs
       alias AppWeb.GraphQl.Middleware.Authenticated
+      alias AppWeb.GraphQl.Middleware.AuthorizeResource
       alias AppWeb.GraphQl.Middleware.Unauthenticated
       alias AppWeb.GraphQl.Middleware.LoadResource
-      alias Absinthe.Relay.Node.ParseIDs
     end
   end
 end

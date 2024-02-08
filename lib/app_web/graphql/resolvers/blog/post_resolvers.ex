@@ -28,4 +28,8 @@ defmodule AppWeb.GraphQl.Blog.PostResolvers do
 
     # This will return changeset errors
   end
+
+  def paginate_posts(args, _resolution) do
+    Blog.paginate_posts(args)
+  end
 end

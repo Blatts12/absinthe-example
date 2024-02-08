@@ -16,4 +16,6 @@ defmodule AppWeb.GraphQl.Blog.PostTypes do
     field :type, :post_type
     field :user, non_null(:user), resolve: dataloader(:basic)
   end
+
+  connection(node_type: :post)
 end

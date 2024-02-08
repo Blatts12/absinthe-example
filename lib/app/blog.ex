@@ -6,6 +6,7 @@ defmodule App.Blog do
   import Ecto.Query, warn: false
   alias App.Repo
   alias App.Blog.Post
+  alias Absinthe.Relay.Connection
 
   @doc """
   Returns the list of posts.
@@ -125,5 +126,11 @@ defmodule App.Blog do
   """
   def change_post(%Post{} = post, attrs \\ %{}) do
     Post.changeset(post, attrs)
+  end
+
+  def paginate_posts(args) do
+    query = from p in Post, order_by: [desc: p.inserted_at]
+
+    Connection.from_query(query, &Repo.all/1, args)
   end
 end

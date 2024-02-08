@@ -13,5 +13,9 @@ defmodule AppWeb.GraphQl.Blog.PostQueries do
       arg :date, :date
       resolve &PostResolvers.list_posts/3
     end
+
+    connection field :paginate_posts, node_type: :post do
+      resolve &PostResolvers.paginate_posts/2
+    end
   end
 end

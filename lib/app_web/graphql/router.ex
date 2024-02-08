@@ -1,7 +1,9 @@
 defmodule AppWeb.GraphQl.Router do
   use Plug.Router
+  alias AppWeb.FetchUserPlug
 
   plug :match
+  plug FetchUserPlug
   plug :dispatch
 
   forward "/graphql",

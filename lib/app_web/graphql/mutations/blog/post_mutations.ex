@@ -5,6 +5,8 @@ defmodule AppWeb.GraphQl.Blog.PostMutations do
 
   object :post_mutations do
     payload field :create_post do
+      middleware Authenticated
+
       input do
         field :title, non_null(:string)
         field :image, :upload

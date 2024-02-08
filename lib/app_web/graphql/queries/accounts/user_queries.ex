@@ -10,6 +10,7 @@ defmodule AppWeb.GraphQl.Accounts.UserQueries do
     end
 
     field :current_user, :user do
+      middleware Authenticated
       resolve &UserResolvers.current_user/2
     end
   end

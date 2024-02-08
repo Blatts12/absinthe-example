@@ -24,8 +24,4 @@ defmodule AppWeb.GraphQl.Accounts.UserResolvers do
   def current_user(_args, %{context: %{current_user: user}}) do
     {:ok, user}
   end
-
-  def current_user(_args, _resolution) do
-    {:error, :unauthorized}
-  end
 end

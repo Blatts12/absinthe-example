@@ -26,10 +26,6 @@ defmodule AppWeb.GraphQl.Blog.PostResolvers do
     end
   end
 
-  def create_post(_args, _resolution) do
-    {:error, :unauthorized}
-  end
-
   def paginate_posts(args, _resolution) do
     Blog.paginate_posts(args)
   end

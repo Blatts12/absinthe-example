@@ -2,6 +2,7 @@ defmodule AppWeb.GraphQl.Schema do
   use Absinthe.Schema
 
   alias AppWeb.GraphQl.Middleware.HandleChangesetErrors
+  alias AppWeb.GraphQl.Schema.BasicDataSource
 
   # datetime, native_datetime, decimal
   import_types Absinthe.Type.Custom
@@ -18,6 +19,18 @@ defmodule AppWeb.GraphQl.Schema do
 
   def middleware(middleware, _field, _object) do
     middleware
+  end
+
+  def context(context) do
+    loader =
+      Dataloader.new()
+      |> Dataloader.add_source(:basic, BasicDataSource.source())
+
+    Map.put(context, :loader, loader)
+  end
+
+  def plugins do
+    [Absinthe.Middleware.Dataloader] ++ Absinthe.Plugin.defaults()
   end
 
   query do

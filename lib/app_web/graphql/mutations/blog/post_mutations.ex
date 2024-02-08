@@ -8,6 +8,7 @@ defmodule AppWeb.GraphQl.Blog.PostMutations do
       input do
         field :title, non_null(:string)
         field :user_id, non_null(:id)
+        field :image, :upload
       end
 
       output do

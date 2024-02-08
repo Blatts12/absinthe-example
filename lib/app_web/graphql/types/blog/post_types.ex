@@ -14,6 +14,7 @@ defmodule AppWeb.GraphQl.Blog.PostTypes do
     field :inserted_at, non_null(:naive_datetime)
     field :updated_at, non_null(:naive_datetime)
     field :type, :post_type
+    field :image, :string
     field :user, non_null(:user), resolve: dataloader(:basic)
   end
 

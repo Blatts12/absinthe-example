@@ -18,15 +18,16 @@ defmodule AppWeb.GraphQl.Blog.PostResolvers do
     {:ok, Blog.list_posts(args)}
   end
 
-  def create_post(args, _resolution) do
-    # Change args in some way
+  def create_post(args, %{context: %{current_user: %{id: user_id}}}) do
+    args = Map.put(args, :user_id, user_id)
+
     with {:ok, %Post{} = post} <- Blog.create_post(args) do
-      # Do anything else
-      # Absinthe.Subscription.publish(AppWeb.Endpoint, post, post_created: "post_created")
       {:ok, %{post: post}}
     end
+  end
 
-    # This will return changeset errors
+  def create_post(_args, _resolution) do
+    {:error, :unauthorized}
   end
 
   def paginate_posts(args, _resolution) do

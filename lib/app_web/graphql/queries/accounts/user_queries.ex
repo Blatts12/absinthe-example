@@ -1,5 +1,5 @@
 defmodule AppWeb.GraphQl.Accounts.UserQueries do
-  use Absinthe.Schema.Notation
+  use AppWeb.GraphQl.Schema.Type
 
   alias AppWeb.GraphQl.Accounts.UserResolvers
 

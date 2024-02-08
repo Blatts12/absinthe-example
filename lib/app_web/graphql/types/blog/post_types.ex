@@ -1,5 +1,5 @@
 defmodule AppWeb.GraphQl.Blog.PostTypes do
-  use Absinthe.Schema.Notation
+  use AppWeb.GraphQl.Schema.Type
 
   import Absinthe.Resolution.Helpers, only: [batch: 3]
 

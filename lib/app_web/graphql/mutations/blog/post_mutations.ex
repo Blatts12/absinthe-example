@@ -1,5 +1,5 @@
 defmodule AppWeb.GraphQl.Blog.PostMutations do
-  use Absinthe.Schema.Notation
+  use AppWeb.GraphQl.Schema.Type
 
   alias AppWeb.GraphQl.Blog.PostResolvers
 

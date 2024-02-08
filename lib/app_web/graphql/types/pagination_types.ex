@@ -1,5 +1,5 @@
 defmodule AppWeb.GraphQl.PaginationTypes do
-  use Absinthe.Schema.Notation
+  use AppWeb.GraphQl.Schema.Type
 
   object :pagination_metadata do
     field :after, :string

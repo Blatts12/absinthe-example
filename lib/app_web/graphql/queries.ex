@@ -1,5 +1,5 @@
 defmodule AppWeb.GraphQl.Queries do
-  use Absinthe.Schema.Notation
+  use AppWeb.GraphQl.Schema.Type
 
   # Accounts
   import_types AppWeb.GraphQl.Accounts.UserQueries

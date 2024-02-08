@@ -1,5 +1,5 @@
 defmodule AppWeb.GraphQl.Blog.PostSubscriptions do
-  use Absinthe.Schema.Notation
+  use AppWeb.GraphQl.Schema.Type
 
   object :post_subscriptions do
     field :post_created, non_null(:post) do

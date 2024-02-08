@@ -31,7 +31,9 @@ defmodule AppWeb.GraphQl.Schema do
     field :user_id, non_null(:id)
   end
 
+  @desc "This is a user"
   object :user do
+    @desc "This is the user's id"
     field :id, non_null(:id)
     field :email, :string
     field :inserted_at, non_null(:datetime)

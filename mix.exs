@@ -50,7 +50,8 @@ defmodule App.MixProject do
       {:absinthe_phoenix, "~> 2.0.2"},
       {:paginator,
        git: "https://github.com/omarelb/paginator.git",
-       branch: "loosen_plug_crypto_dependency_constraint"}
+       branch: "loosen_plug_crypto_dependency_constraint"},
+      {:dataloader, "~> 2.0.0"}
     ]
   end
 

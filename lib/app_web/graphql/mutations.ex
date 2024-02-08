@@ -1,5 +1,5 @@
 defmodule AppWeb.GraphQl.Mutations do
-  use AppWeb.GraphQl.Schema.Type
+  use Absinthe.Schema.Notation
 
   # Blog
   import_types AppWeb.GraphQl.Blog.PostMutations

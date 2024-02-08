@@ -1,5 +1,5 @@
 defmodule AppWeb.GraphQl.Types do
-  use AppWeb.GraphQl.Schema.Type
+  use Absinthe.Schema.Notation
 
   # Accounts
   import_types AppWeb.GraphQl.Accounts.UserTypes

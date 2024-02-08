@@ -1,10 +1,6 @@
 defmodule AppWeb.GraphQl.Blog.PostTypes do
   use AppWeb.GraphQl.Schema.Type
 
-  import Absinthe.Resolution.Helpers, only: [batch: 3]
-
-  alias AppWeb.GraphQl.Accounts.UserResolvers
-
   @desc "You can describe enums as well"
   enum :post_type do
     value :announcement
@@ -19,14 +15,7 @@ defmodule AppWeb.GraphQl.Blog.PostTypes do
     field :inserted_at, non_null(:naive_datetime)
     field :updated_at, non_null(:naive_datetime)
     field :type, :post_type
-
-    field :user, non_null(:user) do
-      resolve fn post, _args, _resolution ->
-        batch({UserResolvers, :list_users_by_ids, User}, post.user_id, fn batch_results ->
-          {:ok, Map.get(batch_results, post.user_id)}
-        end)
-      end
-    end
+    field :user, non_null(:user), resolve: dataloader(:basic)
   end
 
   object :post_pagination do

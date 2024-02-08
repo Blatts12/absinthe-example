@@ -13,6 +13,24 @@ defmodule AppWeb.GraphQl.Schema do
   import_types AppWeb.GraphQl.PaginationTypes
   import_types AppWeb.GraphQl.Types
 
+  query do
+    # Accounts
+    import_fields :user_queries
+
+    # Blog
+    import_fields :post_queries
+  end
+
+  mutation do
+    # Blog
+    import_fields :post_mutations
+  end
+
+  subscription do
+    # Blog
+    import_fields :post_subscriptions
+  end
+
   def middleware(middleware, _field, %{identifier: :mutation}) do
     middleware ++ [HandleChangesetErrors]
   end
@@ -31,23 +49,5 @@ defmodule AppWeb.GraphQl.Schema do
 
   def plugins do
     [Absinthe.Middleware.Dataloader] ++ Absinthe.Plugin.defaults()
-  end
-
-  query do
-    # Accounts
-    import_fields :user_queries
-
-    # Blog
-    import_fields :post_queries
-  end
-
-  mutation do
-    # Blog
-    import_fields :post_mutations
-  end
-
-  subscription do
-    # Blog
-    import_fields :post_subscriptions
   end
 end

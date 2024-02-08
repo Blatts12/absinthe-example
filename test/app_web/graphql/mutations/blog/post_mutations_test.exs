@@ -2,7 +2,6 @@ defmodule AppWeb.GraphQl.Blog.PostMutationsTest do
   use AppWeb.GraphQlCase
 
   alias App.AccountsFixtures
-  alias AppWeb.GraphQl.Schema
 
   describe "create_post" do
     @create_post """
@@ -19,7 +18,6 @@ defmodule AppWeb.GraphQl.Blog.PostMutationsTest do
 
     test "creates post when input is valid" do
       user = AccountsFixtures.user_fixture()
-      user_id = Absinthe.Relay.Node.to_global_id("User", user.id, Schema)
 
       image = %Plug.Upload{
         content_type: "image/png",
@@ -30,7 +28,6 @@ defmodule AppWeb.GraphQl.Blog.PostMutationsTest do
       variables = %{
         "input" => %{
           "title" => "valid title",
-          "userId" => user_id,
           "image" => "image_png"
         }
       }
@@ -49,7 +46,8 @@ defmodule AppWeb.GraphQl.Blog.PostMutationsTest do
                gql_post(%{
                  query: @create_post,
                  variables: variables,
-                 image_png: image
+                 image_png: image,
+                 add_token_for: user
                })
 
       assert to_string(user.id) == user_id
@@ -57,12 +55,10 @@ defmodule AppWeb.GraphQl.Blog.PostMutationsTest do
 
     test "returns error when input is invalid" do
       user = AccountsFixtures.user_fixture()
-      user_id = Absinthe.Relay.Node.to_global_id("User", user.id, Schema)
 
       variables = %{
         "input" => %{
-          "title" => "bad",
-          "userId" => user_id
+          "title" => "bad"
         }
       }
 
@@ -77,7 +73,8 @@ defmodule AppWeb.GraphQl.Blog.PostMutationsTest do
              } =
                gql_post(%{
                  query: @create_post,
-                 variables: variables
+                 variables: variables,
+                 add_token_for: user
                })
     end
   end

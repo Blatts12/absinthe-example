@@ -12,10 +12,14 @@ defmodule AppWeb.UserSocket do
     params = Map.new(params, fn {k, v} -> {String.downcase(k), v} end)
 
     socket =
-      if current_user = current_user(params) do
-        socket
-        |> assign(:current_user, current_user)
-        |> Absinthe.Phoenix.Socket.put_options(context: %{current_user: current_user})
+      case current_user(params) do
+        nil ->
+          socket
+
+        current_user ->
+          socket
+          |> assign(:current_user, current_user)
+          |> Absinthe.Phoenix.Socket.put_options(context: %{current_user: current_user})
       end
 
     {:ok, socket}

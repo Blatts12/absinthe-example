@@ -12,6 +12,11 @@ defmodule AppWeb.GraphQl.Schema do
     field :updated_at, non_null(:naive_datetime)
   end
 
+  input_object :create_post_input do
+    field :title, non_null(:string)
+    field :user_id, non_null(:id)
+  end
+
   query do
     field :get_post, :post do
       arg :id, non_null(:id)
@@ -22,10 +27,9 @@ defmodule AppWeb.GraphQl.Schema do
 
   mutation do
     field :create_post, non_null(:post) do
-      arg :title, non_null(:string)
-      arg :user_id, non_null(:id)
+      arg :input, non_null(:create_post_input)
 
-      resolve fn args, _ -> App.Blog.create_post(args) end
+      resolve fn %{input: args}, _ -> App.Blog.create_post(args) end
     end
   end
 

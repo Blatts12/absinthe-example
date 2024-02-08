@@ -8,9 +8,8 @@ defmodule AppWeb.GraphQl.Blog.PostTypes do
     value :tutorial, as: "GUIDE"
   end
 
-  object :post do
+  node object(:post) do
     field :title, :string
-    field :id, non_null(:id)
     field :user_id, non_null(:id)
     field :inserted_at, non_null(:naive_datetime)
     field :updated_at, non_null(:naive_datetime)

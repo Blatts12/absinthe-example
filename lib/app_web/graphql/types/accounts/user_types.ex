@@ -4,9 +4,7 @@ defmodule AppWeb.GraphQl.Accounts.UserTypes do
   alias App.Blog.Post
 
   @desc "This is a user"
-  object :user do
-    @desc "This is the user's id"
-    field :id, non_null(:id)
+  node object(:user) do
     field :email, :string
     field :inserted_at, non_null(:datetime)
     field :updated_at, non_null(:datetime)

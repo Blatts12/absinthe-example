@@ -8,6 +8,7 @@ defmodule AppWeb.GraphQl.Schema.Type do
 
       alias AppWeb.GraphQl.Middleware.Authenticated
       alias AppWeb.GraphQl.Middleware.Unauthenticated
+      alias AppWeb.GraphQl.Middleware.LoadResource
       alias Absinthe.Relay.Node.ParseIDs
     end
   end

@@ -3,11 +3,22 @@ defmodule AppWeb.GraphQl.Blog.PostSubscriptions do
 
   object :post_subscriptions do
     field :post_created, non_null(:post) do
-      config fn _args, _resolution ->
-        {:ok, topic: "post_created"}
+      arg :user_id, :id
+
+      config fn args, _resolution ->
+        case args do
+          %{user_id: user_id} ->
+            {:ok, topic: "post_created:#{user_id}"}
+
+          _ ->
+            {:ok, topic: "post_created"}
+        end
       end
 
-      # trigger :create_post, topic: fn _ -> "post_created" end
+      trigger :create_post,
+        topic: fn %{user_id: user_id} ->
+          ["post_created", "post_created:#{user_id}"]
+        end
     end
   end
 end

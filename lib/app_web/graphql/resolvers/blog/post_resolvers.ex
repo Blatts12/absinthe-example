@@ -22,7 +22,7 @@ defmodule AppWeb.GraphQl.Blog.PostResolvers do
     # Change args in some way
     with {:ok, %Post{} = post} <- Blog.create_post(args) do
       # Do anything else
-      Absinthe.Subscription.publish(AppWeb.Endpoint, post, post_created: "post_created")
+      # Absinthe.Subscription.publish(AppWeb.Endpoint, post, post_created: "post_created")
       {:ok, post}
     end
 

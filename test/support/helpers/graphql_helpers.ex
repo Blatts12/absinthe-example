@@ -2,6 +2,7 @@ defmodule AppWeb.GraphQlHelpers do
   import Phoenix.ConnTest
   import Plug.Conn
 
+  alias App.Accounts
   alias App.Accounts.User
 
   # Required by the post function from Phoenix.ConnTest
@@ -20,7 +21,8 @@ defmodule AppWeb.GraphQlHelpers do
 
   @spec add_token_for_user(Plug.Conn.t(), map()) :: Plug.Conn.t()
   defp add_token_for_user(conn, %{add_token_for: %User{} = user}) do
-    put_req_header(conn, "authorization", "Bearer #{user.id}")
+    user_token = Accounts.generate_user_session_token(user)
+    put_req_header(conn, "authorization", "Bearer #{user_token.token}")
   end
 
   defp add_token_for_user(conn, %{add_token_for: token}) when is_binary(token) do

@@ -26,7 +26,7 @@ defmodule AppWeb.UserSocket do
   end
 
   defp current_user(%{"authorization" => "Bearer " <> token}) do
-    with %User{} = user <- Accounts.get_user(token) do
+    with %User{} = user <- Accounts.get_user_by_session_token(token) do
       user
     end
   end

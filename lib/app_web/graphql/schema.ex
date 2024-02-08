@@ -8,8 +8,8 @@ defmodule AppWeb.GraphQl.Schema do
     field :title, :string
     field :id, non_null(:id)
     field :user_id, non_null(:id)
-    field :inserted_at, non_null(:datetime)
-    field :updated_at, non_null(:datetime)
+    field :inserted_at, non_null(:naive_datetime)
+    field :updated_at, non_null(:naive_datetime)
   end
 
   query do
@@ -25,7 +25,7 @@ defmodule AppWeb.GraphQl.Schema do
       arg :title, non_null(:string)
       arg :user_id, non_null(:id)
 
-      resolve fn args, _ -> {:ok, App.Blog.create_post(args)} end
+      resolve fn args, _ -> App.Blog.create_post(args) end
     end
   end
 

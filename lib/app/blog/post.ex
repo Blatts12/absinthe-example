@@ -4,7 +4,8 @@ defmodule App.Blog.Post do
 
   schema "posts" do
     field :title, :string
-    field :user_id, :id
+
+    belongs_to :user, App.Accounts.User
 
     timestamps()
   end
@@ -12,7 +13,8 @@ defmodule App.Blog.Post do
   @doc false
   def changeset(post, attrs) do
     post
-    |> cast(attrs, [:title])
-    |> validate_required([:title])
+    |> cast(attrs, [:title, :user_id])
+    |> validate_required([:title, :user_id])
+    |> foreign_key_constraint(:user_id)
   end
 end

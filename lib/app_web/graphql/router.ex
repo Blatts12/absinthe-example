@@ -9,7 +9,9 @@ defmodule AppWeb.GraphQl.Router do
   forward "/graphql",
     to: Absinthe.Plug,
     init_opts: [
-      schema: AppWeb.GraphQl.Schema
+      schema: AppWeb.GraphQl.Schema,
+      analyze_complexity: true,
+      max_complexity: 300
     ]
 
   if Application.compile_env(:app, :dev_routes) do

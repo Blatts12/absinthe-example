@@ -1,5 +1,6 @@
 defmodule AppWeb.GraphQl.Schema do
   use Absinthe.Schema
+  use Absinthe.Relay.Schema, :modern
 
   alias App.Blog
   alias AppWeb.GraphQl.Middleware.HandleChangesetErrors

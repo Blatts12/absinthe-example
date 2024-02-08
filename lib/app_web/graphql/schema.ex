@@ -22,13 +22,7 @@ defmodule AppWeb.GraphQl.Schema do
   query do
     field :get_post, non_null(:post) do
       arg :id, non_null(:id)
-
-      resolve fn %{id: id}, _ ->
-        case App.Blog.get_post(id) do
-          %Post{} = post -> {:ok, post}
-          _ -> {:error, :not_found}
-        end
-      end
+      resolve &get_post/2
     end
   end
 
@@ -42,4 +36,11 @@ defmodule AppWeb.GraphQl.Schema do
 
   # subscription do
   # end
+
+  def get_post(%{id: id}, _resolution) do
+    case App.Blog.get_post(id) do
+      %Post{} = post -> {:ok, post}
+      _ -> {:error, :not_found}
+    end
+  end
 end

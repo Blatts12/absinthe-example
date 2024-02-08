@@ -17,4 +17,14 @@ defmodule AppWeb.GraphQl.Blog.PostResolvers do
   def list_posts(_parent, args, _resolution) do
     {:ok, Blog.list_posts(args)}
   end
+
+  def create_post(%{input: args}, _resolution) do
+    # Change args in some way
+    with {:ok, %Post{} = post} <- Blog.create_post(args) do
+      # Do anything else
+      {:ok, post}
+    end
+
+    # This will return changeset errors
+  end
 end

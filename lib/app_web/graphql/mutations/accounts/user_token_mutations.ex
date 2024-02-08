@@ -35,5 +35,16 @@ defmodule AppWeb.GraphQl.Accounts.UserTokenMutations do
 
       resolve &UserTokenResolvers.login_user/2
     end
+
+    @desc "Logs out the current user"
+    payload field :logout do
+      middleware Authenticated
+
+      output do
+        field :successful, :boolean
+      end
+
+      resolve &UserTokenResolvers.logout/2
+    end
   end
 end

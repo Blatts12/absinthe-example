@@ -18,4 +18,10 @@ defmodule AppWeb.GraphQl.Accounts.UserTokenResolvers do
         {:error, :invalid_credentials}
     end
   end
+
+  def logout(_args, %{context: %{token: token}}) do
+    :ok = Accounts.delete_user_session_token(token)
+
+    {:ok, %{successful: true}}
+  end
 end

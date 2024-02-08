@@ -16,9 +16,4 @@ defmodule AppWeb.GraphQl.Blog.PostTypes do
     field :type, :post_type
     field :user, non_null(:user), resolve: dataloader(:basic)
   end
-
-  object :post_pagination do
-    field :entries, list_of(:post)
-    field :metadata, :pagination_metadata
-  end
 end

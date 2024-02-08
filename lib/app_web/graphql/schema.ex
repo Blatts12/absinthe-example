@@ -21,7 +21,6 @@ defmodule AppWeb.GraphQl.Schema do
   import_types AppWeb.GraphQl.Mutations
   import_types AppWeb.GraphQl.Subscriptions
   import_types AppWeb.GraphQl.Queries
-  import_types AppWeb.GraphQl.PaginationTypes
   import_types AppWeb.GraphQl.Types
 
   query do

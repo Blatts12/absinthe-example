@@ -126,14 +126,4 @@ defmodule App.Blog do
   def change_post(%Post{} = post, attrs \\ %{}) do
     Post.changeset(post, attrs)
   end
-
-  def paginate_posts(pagination \\ %{}) do
-    repo_pagination =
-      pagination
-      |> Enum.into(Keyword.new())
-      |> Keyword.put_new(:limit, 20)
-      |> Keyword.put(:cursor_fields, [:inserted_at, :id])
-
-    Repo.paginate(Post, repo_pagination)
-  end
 end

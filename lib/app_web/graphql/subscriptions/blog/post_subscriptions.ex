@@ -16,9 +16,13 @@ defmodule AppWeb.GraphQl.Blog.PostSubscriptions do
       end
 
       trigger :create_post,
-        topic: fn %{user_id: user_id} ->
+        topic: fn %{post: %{user_id: user_id}} ->
           ["post_created", "post_created:#{user_id}"]
         end
+
+      resolve fn %{post: post}, _args, _resolution ->
+        {:ok, post}
+      end
     end
   end
 end

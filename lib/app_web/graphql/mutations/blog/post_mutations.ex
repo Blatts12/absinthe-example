@@ -4,10 +4,17 @@ defmodule AppWeb.GraphQl.Blog.PostMutations do
   alias AppWeb.GraphQl.Blog.PostResolvers
 
   object :post_mutations do
-    field :create_post, non_null(:post) do
-      arg :input, non_null(:create_post_input)
+    payload field :create_post do
+      input do
+        field :title, non_null(:string)
+        field :user_id, non_null(:id)
+      end
 
-      middleware ParseIDs, input: [user_id: :user]
+      output do
+        field :post, non_null(:post)
+      end
+
+      middleware ParseIDs, user_id: :user
 
       resolve &PostResolvers.create_post/2
     end

@@ -18,12 +18,12 @@ defmodule AppWeb.GraphQl.Blog.PostResolvers do
     {:ok, Blog.list_posts(args)}
   end
 
-  def create_post(%{input: args}, _resolution) do
+  def create_post(args, _resolution) do
     # Change args in some way
     with {:ok, %Post{} = post} <- Blog.create_post(args) do
       # Do anything else
       # Absinthe.Subscription.publish(AppWeb.Endpoint, post, post_created: "post_created")
-      {:ok, post}
+      {:ok, %{post: post}}
     end
 
     # This will return changeset errors

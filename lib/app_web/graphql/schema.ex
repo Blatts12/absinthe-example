@@ -1,6 +1,7 @@
 defmodule AppWeb.GraphQl.Schema do
   use Absinthe.Schema
 
+  alias App.Blog
   alias AppWeb.GraphQl.Middleware.HandleChangesetErrors
   alias AppWeb.GraphQl.Schema.BasicDataSource
 
@@ -43,6 +44,7 @@ defmodule AppWeb.GraphQl.Schema do
     loader =
       Dataloader.new()
       |> Dataloader.add_source(:basic, BasicDataSource.source())
+      |> Dataloader.add_source(Blog.Post, Blog.PostDataSource.source())
 
     Map.put(context, :loader, loader)
   end

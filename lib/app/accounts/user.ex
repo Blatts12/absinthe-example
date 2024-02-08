@@ -5,6 +5,8 @@ defmodule App.Accounts.User do
   schema "users" do
     field :email, :string
 
+    has_many :posts, App.Blog.Post
+
     timestamps()
   end
 

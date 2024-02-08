@@ -1,7 +1,7 @@
 defmodule AppWeb.GraphQl.Accounts.UserTypes do
   use AppWeb.GraphQl.Schema.Type
 
-  alias AppWeb.GraphQl.Blog.PostResolvers
+  alias App.Blog.Post
 
   @desc "This is a user"
   object :user do
@@ -10,11 +10,6 @@ defmodule AppWeb.GraphQl.Accounts.UserTypes do
     field :email, :string
     field :inserted_at, non_null(:datetime)
     field :updated_at, non_null(:datetime)
-
-    # field :posts, list_of(:post), resolve: &list_posts/3
-    field :posts, list_of(:post) do
-      arg :date, :date
-      resolve &PostResolvers.list_posts/3
-    end
+    field :posts, list_of(:post), resolve: dataloader(Post)
   end
 end

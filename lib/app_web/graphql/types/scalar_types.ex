@@ -1,22 +1,23 @@
 defmodule AppWeb.GraphQl.ScalarTypes do
   use AppWeb.GraphQl.Schema.Type
+  alias App.Uploaders.ImageFile
 
-  @desc "Represents a custom title"
-  scalar :custom_title, name: "Title" do
+  @image_extensions ~w(.jpg .jpeg .gif .png .webp)
+
+  @desc "An URL to a file"
+  scalar :file, name: "File" do
     serialize fn
       nil ->
-        nil
+        ""
 
-      title ->
-        "Custom #{title}"
-    end
+      %{file_name: file_name} = file ->
+        ext = file_name |> Path.extname() |> String.downcase()
 
-    parse fn
-      "Custom " <> title ->
-        title
-
-      title ->
-        title
+        if Enum.member?(@image_extensions, ext) do
+          ImageFile.url(file)
+        else
+          ""
+        end
     end
   end
 end

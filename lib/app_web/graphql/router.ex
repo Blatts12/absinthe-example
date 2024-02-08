@@ -15,6 +15,8 @@ defmodule AppWeb.GraphQl.Router do
       to: Absinthe.Plug.GraphiQL,
       init_opts: [
         schema: AppWeb.GraphQl.Schema,
+        socket: AppWeb.UserSocket,
+        socket_url: "ws://localhost:4000/api/graphql",
         interface: :playground
       ]
   end

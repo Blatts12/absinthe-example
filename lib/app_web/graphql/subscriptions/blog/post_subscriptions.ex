@@ -7,7 +7,7 @@ defmodule AppWeb.GraphQl.Blog.PostSubscriptions do
         {:ok, topic: "post_created"}
       end
 
-      trigger :create_post, topic: fn _ -> "post_created" end
+      # trigger :create_post, topic: fn _ -> "post_created" end
     end
   end
 end

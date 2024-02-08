@@ -17,6 +17,8 @@ defmodule AppWeb.GraphQl.Schema do
 
   # datetime, native_datetime, decimal
   import_types Absinthe.Type.Custom
+  # Upload type
+  import_types Absinthe.Plug.Types
 
   import_types AppWeb.GraphQl.Mutations
   import_types AppWeb.GraphQl.Subscriptions

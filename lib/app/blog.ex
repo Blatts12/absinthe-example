@@ -5,7 +5,6 @@ defmodule App.Blog do
 
   import Ecto.Query, warn: false
   alias App.Repo
-
   alias App.Blog.Post
 
   @doc """
@@ -19,6 +18,16 @@ defmodule App.Blog do
   """
   def list_posts do
     Repo.all(Post)
+  end
+
+  def list_posts(author, args) do
+    filters = args |> Enum.into(Keyword.new()) |> Keyword.put(:user_id, author.id)
+    Repo.all(from p in Post, where: ^filters)
+  end
+
+  def list_posts(args) do
+    filters = args |> Enum.into(Keyword.new())
+    Repo.all(from p in Post, where: ^filters)
   end
 
   @doc """

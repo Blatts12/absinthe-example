@@ -1,6 +1,7 @@
 defmodule AppWeb.GraphQl.Schema do
   use Absinthe.Schema
 
+  alias App.Accounts.User
   alias App.Blog.Post
 
   # datetime, native_datetime, decimal
@@ -19,10 +20,28 @@ defmodule AppWeb.GraphQl.Schema do
     field :user_id, non_null(:id)
   end
 
+  object :user do
+    field :id, non_null(:id)
+    field :email, :string
+    field :inserted_at, non_null(:datetime)
+    field :updated_at, non_null(:datetime)
+
+    # field :posts, list_of(:post), resolve: &list_posts/3
+    field :posts, list_of(:post) do
+      arg :date, :date
+      resolve &list_posts/3
+    end
+  end
+
   query do
     field :get_post, non_null(:post) do
       arg :id, non_null(:id)
       resolve &get_post/2
+    end
+
+    field :get_user, non_null(:user) do
+      arg :id, non_null(:id)
+      resolve &get_user/2
     end
   end
 
@@ -37,10 +56,25 @@ defmodule AppWeb.GraphQl.Schema do
   # subscription do
   # end
 
+  def get_user(%{id: id}, _resolution) do
+    case App.Accounts.get_user(id) do
+      %User{} = user -> {:ok, user}
+      _ -> {:error, :not_found}
+    end
+  end
+
   def get_post(%{id: id}, _resolution) do
     case App.Blog.get_post(id) do
       %Post{} = post -> {:ok, post}
       _ -> {:error, :not_found}
     end
+  end
+
+  def list_posts(%App.Accounts.User{} = author, args, _resolution) do
+    {:ok, App.Blog.list_posts(author, args)}
+  end
+
+  def list_posts(_parent, args, _resolution) do
+    {:ok, App.Blog.list_posts(args)}
   end
 end

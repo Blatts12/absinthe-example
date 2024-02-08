@@ -3,6 +3,7 @@ defmodule AppWeb.GraphQl.Types do
 
   # Accounts
   import_types AppWeb.GraphQl.Accounts.UserTypes
+  import_types AppWeb.GraphQl.Accounts.UserTokenTypes
 
   # Blog
   import_types AppWeb.GraphQl.Blog.PostTypes

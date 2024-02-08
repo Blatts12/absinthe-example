@@ -7,6 +7,7 @@ defmodule AppWeb.GraphQl.Schema do
   import_types Absinthe.Type.Custom
 
   import_types AppWeb.GraphQl.Mutations
+  import_types AppWeb.GraphQl.Subscriptions
   import_types AppWeb.GraphQl.Queries
   import_types AppWeb.GraphQl.Types
 
@@ -31,6 +32,8 @@ defmodule AppWeb.GraphQl.Schema do
     import_fields :post_mutations
   end
 
-  # subscription do
-  # end
+  subscription do
+    # Blog
+    import_fields :post_subscriptions
+  end
 end

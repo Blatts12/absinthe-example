@@ -13,5 +13,11 @@ defmodule AppWeb.GraphQl.Blog.PostQueries do
       arg :date, :date
       resolve &PostResolvers.list_posts/3
     end
+
+    field :paginate_posts, :post_pagination do
+      arg :pagination, non_null(:pagination_input)
+
+      resolve &PostResolvers.paginate_posts/2
+    end
   end
 end

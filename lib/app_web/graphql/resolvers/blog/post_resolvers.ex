@@ -29,4 +29,10 @@ defmodule AppWeb.GraphQl.Blog.PostResolvers do
   def paginate_posts(args, _resolution) do
     Blog.paginate_posts(args)
   end
+
+  def update_post(args, %{context: %{resource: post}}) do
+    with {:ok, post} <- Blog.update_post(post, args) do
+      {:ok, %{post: post}}
+    end
+  end
 end

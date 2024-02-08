@@ -1,12 +1,8 @@
 defmodule AppWeb.Router do
   use AppWeb, :router
 
-  pipeline :api do
-    plug :accepts, ["json"]
-  end
-
-  scope "/api", AppWeb do
-    pipe_through :api
+  scope "/", AppWeb do
+    forward "/api", GraphQl.Router
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development

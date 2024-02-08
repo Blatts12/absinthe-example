@@ -17,7 +17,9 @@ defmodule App.Application do
       # Start Finch
       {Finch, name: App.Finch},
       # Start the Endpoint (http/https)
-      AppWeb.Endpoint
+      AppWeb.Endpoint,
+      # Start the Absinthe subscription
+      {Absinthe.Subscription, AppWeb.Endpoint}
       # Start a worker by calling: App.Worker.start_link(arg)
       # {App.Worker, arg}
     ]

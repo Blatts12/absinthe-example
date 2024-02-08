@@ -6,6 +6,13 @@ defmodule AppWeb.GraphQl.Schema do
   alias AppWeb.GraphQl.Middleware.HandleChangesetErrors
   alias AppWeb.GraphQl.Schema.BasicDataSource
 
+  node interface do
+    resolve_type fn
+      %{__typename: "Post"} -> "BigPost"
+      %{__typename: schema_name} -> schema_name
+    end
+  end
+
   # datetime, native_datetime, decimal
   import_types Absinthe.Type.Custom
 
